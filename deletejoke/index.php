@@ -45,6 +45,8 @@ if (!mysqli_select_db($link, 'ijdb'))
   	exit();
 }
 
+
+
 if (isset($_POST['joketext']))
 {
   	$joketext = mysqli_real_escape_string($link, $_POST['joketext']);
@@ -100,7 +102,12 @@ if (isset($_GET['deletejoke']))
   	exit();
 }
 
-$result = mysqli_query($link, 'SELECT id, joketext FROM joke');
+//echo "before select all";
+// select all
+
+
+//$result = mysqli_query($link, 'SELECT id, joketext FROM joke');
+$result = mysqli_query($link, 'SELECT joke.id, joketext, name, email FROM joke INNER JOIN author ON authorid = author.id');
 if (!$result)
 {
   	$error = 'Error fetching jokes: ' . mysqli_error($link);
@@ -110,7 +117,8 @@ if (!$result)
 
 while ($row = mysqli_fetch_array($result))
 {
-	  $jokes[] = array('id' => $row['id'], 'text' => $row['joketext']);
+	  $jokes[] = array('id' => $row['id'], 'text' => $row['joketext']
+      , 'name' => $row['name'], 'email' => $row['email']);
     // $jokes[] 是 array
 }
 //With the jokes pulled out of the database, we can now pass them along 
