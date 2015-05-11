@@ -29,5 +29,6 @@
 			</form>
 		<?php endforeach; ?>
 		<!-- for loop-->
+		<?php include 'footer.inc.html.php'; ?>
 	</body>
 </html>
