@@ -40,6 +40,69 @@ exit();
 
 
 
+
+
+
+
+if (isset($_POST['action']) and $_POST['action'] == 'Edit')
+{
+  include $_SERVER['DOCUMENT_ROOT'] . '/includes/db.inc.php';
+try {
+    $sql = 'SELECT id, name, email FROM author WHERE id = :id';
+    $s = $pdo->prepare($sql);
+    $s->bindValue(':id', $_POST['id']);
+    $s->execute();
+  }
+  catch (PDOException $e)
+  {
+    $error = 'Error fetching author details.';
+    include 'error.html.php';
+    exit();
+  }
+  $row = $s->fetch();
+  $pageTitle = 'Edit Author';
+  $action = 'editform';
+  $name = $row['name'];
+  $email = $row['email'];
+  $id = $row['id'];
+  $button = 'Update author';
+  include 'form.html.php';
+  exit(); 
+}
+
+if (isset($_GET['editform']))
+{
+  include $_SERVER['DOCUMENT_ROOT'] . '/includes/db.inc.php';
+try {
+    $sql = 'UPDATE author SET
+        name = :name,
+        email = :email
+        WHERE id = :id';
+    $s = $pdo->prepare($sql);
+    $s->bindValue(':id', $_POST['id']);
+    $s->bindValue(':name', $_POST['name']);
+    $s->bindValue(':email', $_POST['email']);
+    $s->execute();
+  }
+  catch (PDOException $e)
+  {
+    $error = 'Error updating submitted author.';
+    include 'error.html.php';
+    exit();
+  }
+  header('Location: .');
+exit(); 
+}
+
+
+
+
+
+
+
+
+
+
 try {
   $result = $pdo->query('SELECT id, name FROM author');
 }
@@ -134,59 +197,6 @@ catch (PDOException $e)
 
 
 //include_once $_SERVER['DOCUMENT_ROOT'] . '/includes/magicquotes.inc.php';
-
-
-if (isset($_POST['action']) and $_POST['action'] == 'Edit')
-{
-  include $_SERVER['DOCUMENT_ROOT'] . '/includes/db.inc.php';
-try {
-    $sql = 'SELECT id, name, email FROM author WHERE id = :id';
-    $s = $pdo->prepare($sql);
-    $s->bindValue(':id', $_POST['id']);
-    $s->execute();
-  }
-  catch (PDOException $e)
-  {
-    $error = 'Error fetching author details.';
-    include 'error.html.php';
-    exit();
-  }
-  $row = $s->fetch();
-  $pageTitle = 'Edit Author';
-  $action = 'editform';
-  $name = $row['name'];
-  $email = $row['email'];
-  $id = $row['id'];
-  $button = 'Update author';
-  include 'form.html.php';
-  exit(); 
-}
-
-if (isset($_GET['editform']))
-{
-  include $_SERVER['DOCUMENT_ROOT'] . '/includes/db.inc.php';
-try {
-    $sql = 'UPDATE author SET
-        name = :name,
-        email = :email
-        WHERE id = :id';
-    $s = $pdo->prepare($sql);
-    $s->bindValue(':id', $_POST['id']);
-    $s->bindValue(':name', $_POST['name']);
-    $s->bindValue(':email', $_POST['email']);
-    $s->execute();
-  }
-  catch (PDOException $e)
-  {
-    $error = 'Error updating submitted author.';
-    include 'error.html.php';
-    exit();
-  }
-  header('Location: .');
-exit(); 
-}
-
-
 
 
 
