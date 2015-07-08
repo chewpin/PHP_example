@@ -13,7 +13,7 @@ if (isset($_POST['joketext']))
 	    $sql = 'INSERT INTO joke SET
 	        joketext = :joketext,
 	        jokedate = CURDATE(),
-	        authorid = 1'; // 暂时固定author都为1
+	        authorid = 2'; // 暂时固定author都为1
 	    $s = $pdo->prepare($sql);
 	    $s->bindValue(':joketext', $_POST['joketext']);
 	    $s->execute();
