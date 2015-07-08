@@ -16,18 +16,12 @@ foreach ($result as $row)
 }
 include 'authors.html.php';
 
+
+
+
 if (isset($_POST['action']) and $_POST['action'] == 'Delete')
 {
-	//include 'confirm.html.php';
-	//exit();
-// }
-// // echo 'After returning from conirm.html.php';
-
-// if ( isset($_POST['action_confirm']) and $_POST['action_confirm'] == 'Confirm' ) {
-//   	include $_SERVER['DOCUMENT_ROOT'] . '/includes/db.inc.php';
-
-  	//echo 'JUST CONFIRMED.';
-  	// Get jokes belonging to author
+	include $_SERVER['DOCUMENT_ROOT'] . '/includes/db.inc.php';
   	try
   	{
    	  $sql = 'SELECT id FROM joke WHERE authorid = :id';
@@ -93,6 +87,9 @@ if (isset($_POST['action']) and $_POST['action'] == 'Delete')
 	exit(); 
 }
 // echo 'Past the if! :(';
+
+include_once $_SERVER['DOCUMENT_ROOT'] .
+    '/includes/magicquotes.inc.php';
 
 if (isset($_GET['add']))
 {
