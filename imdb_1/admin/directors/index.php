@@ -11,6 +11,20 @@ if (isset($_GET['add']))
   $countryid = '';
   $id = '';
   $button = 'Add director';
+  try {
+    $result = $pdo->query('SELECT id, name FROM country');
+  }
+  catch (PDOException $e)
+  {
+    $error = 'Error fetching countries from database!';
+    include 'error.html.php';
+    exit();
+  }
+  foreach ($result as $row)
+  {
+    //echo "1";
+    $countries[] = array('id' => $row['id'], 'name' => $row['name']);
+  }
   include 'form.html.php';
   exit(); 
 }
@@ -112,6 +126,7 @@ foreach ($result as $row)
 {
   $directors[] = array('id' => $row['id'], 'name' => $row['name']);
 }
+
 include 'directors.html.php';
 
 
