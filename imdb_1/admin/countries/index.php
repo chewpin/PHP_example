@@ -119,7 +119,7 @@ if (isset($_POST['action']) and $_POST['action'] == 'Delete')
 // Display country list
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
 try {
-  $result = $pdo->query('SELECT id, name FROM country');
+  $result = $pdo->query('SELECT id, name FROM country ORDER BY name ASC');
 }
 catch (PDOException $e)
 {

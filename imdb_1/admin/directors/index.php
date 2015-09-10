@@ -12,7 +12,7 @@ if (isset($_GET['add']))
   $id = '';
   $button = 'Add director';
   try {
-    $result = $pdo->query('SELECT id, name FROM country');
+    $result = $pdo->query('SELECT id, name FROM country ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -114,7 +114,7 @@ if (isset($_GET['editform']))
 
 
 try {
-  $result = $pdo->query('SELECT id, name FROM director');
+  $result = $pdo->query('SELECT id, name FROM director ORDER BY name ASC');
 }
 catch (PDOException $e)
 {

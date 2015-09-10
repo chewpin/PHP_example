@@ -13,7 +13,7 @@ if (isset($_GET['add']))
   // Build the list of directos
   try
   {
-    $result = $pdo->query('SELECT id, name FROM director');
+    $result = $pdo->query('SELECT id, name FROM director ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -28,7 +28,7 @@ if (isset($_GET['add']))
   // Build the list of countries
   try
   {
-    $result = $pdo->query('SELECT id, name FROM country');
+    $result = $pdo->query('SELECT id, name FROM country ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -74,7 +74,7 @@ if (isset($_POST['action']) and $_POST['action'] == 'Edit')
   // Build the list of directors
   try
   {
-    $result = $pdo->query('SELECT id, name FROM director');
+    $result = $pdo->query('SELECT id, name FROM director ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -106,7 +106,7 @@ if (isset($_POST['action']) and $_POST['action'] == 'Edit')
   // Build the list of all countries
   try
   {
-    $result = $pdo->query('SELECT id, name FROM country');
+    $result = $pdo->query('SELECT id, name FROM country ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -319,7 +319,7 @@ if (isset($_GET['action']) and $_GET['action'] == 'search')
   if ($_GET['text'] != '') // Some search text was specified
   {
     echo "Some search text was specified";
-    $where .= " AND movietext LIKE :movietext";
+    $where .= " AND movietext LIKE :movietext ORDER BY name ASC";
     $placeholders[':movietext'] = '%' . $_GET['text'] . '%';
   }
   try {
@@ -349,7 +349,7 @@ if (isset($_GET['action']) and $_GET['action'] == 'search')
 // Display search form
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
 try {
-  $result = $pdo->query('SELECT id, name FROM director');
+  $result = $pdo->query('SELECT id, name FROM director ORDER BY name ASC');
 }
 catch (PDOException $e)
 {
@@ -362,7 +362,7 @@ foreach ($result as $row)
   $directors[] = array('id' => $row['id'], 'name' => $row['name']);
 }
 try {
-  $result = $pdo->query('SELECT id, name FROM country');
+  $result = $pdo->query('SELECT id, name FROM country ORDER BY name ASC');
 }
 catch (PDOException $e)
 {

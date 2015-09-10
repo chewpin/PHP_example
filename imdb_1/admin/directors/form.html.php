@@ -17,9 +17,6 @@ id="name" value="<?php htmlout($name); ?>">
 		</label> 
 	  </div>
 
-
-
-
 	  <div>
         <label for="countryid">Country:</label>
         <select name="countryid" id="countryid">
@@ -38,16 +35,6 @@ id="name" value="<?php htmlout($name); ?>">
           <?php endforeach; ?>
         </select>
       </div>
-
-      <!-- <div>
-        <label for="countryid">Country: <input type="text" name="countryid"
-id="countryid" value="<?php htmlout($countryid); ?>">
-		</label> 
-	  </div> -->
-
-
-
-
 
 	  <div>
 		<input type="hidden" name="id" value="<?php
