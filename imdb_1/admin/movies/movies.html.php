@@ -12,7 +12,7 @@
 <table>
 <tr><th>Movie Name</th><th>Options</th></tr> <?php foreach ($movies as $movie): ?>
 <tr>
-<td><?php htmlout($movie['name']); ?></td> <td>
+<td><?php htmlout($movie['moviename']); ?></td> <td>
             <form action="?" method="post">
               <div>
 <input type="hidden" name="id" value="<?php htmlout($movie['id']); ?>">

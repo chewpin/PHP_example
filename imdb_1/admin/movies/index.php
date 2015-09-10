@@ -2,6 +2,7 @@
 
 if (isset($_GET['add']))
 {
+  //echo "add";
   $pageTitle = 'New Movie';
   $action = 'addform';
   $moviename = '';
@@ -49,6 +50,7 @@ if (isset($_GET['add']))
 
 if (isset($_POST['action']) and $_POST['action'] == 'Edit')
 {
+  //echo "Edit";
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   try {
     $sql = 'SELECT id, moviename, directorid FROM movie WHERE id = :id';
@@ -129,6 +131,7 @@ if (isset($_POST['action']) and $_POST['action'] == 'Edit')
 
 if (isset($_GET['addform']))
 {
+  //echo "add form";
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   if ($_POST['director'] == '')
   {
@@ -182,6 +185,7 @@ if (isset($_GET['addform']))
 
 if (isset($_GET['editform']))
 {
+  //echo "edit form";
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   if ($_POST['director'] == '')
   {
@@ -250,6 +254,7 @@ if (isset($_GET['editform']))
 
 if (isset($_POST['action']) and $_POST['action'] == 'Delete')
 {
+  //echo "Deleting movie " . $_POST['id'];
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   // Delete country assignments for this movie
   try
@@ -291,6 +296,7 @@ if (isset($_POST['action']) and $_POST['action'] == 'Delete')
 
 if (isset($_GET['action']) and $_GET['action'] == 'search')
 {
+  //echo "Searching start";
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   // The basic SELECT statement
   $select = 'SELECT id, moviename';
@@ -299,22 +305,27 @@ if (isset($_GET['action']) and $_GET['action'] == 'search')
   $placeholders = array();
   if ($_GET['director'] != '') // A director is selected
   {
+    echo "A director is selected";
     $where .= " AND directorid = :directorid";
     $placeholders[':directorid'] = $_GET['director'];
   }
   if ($_GET['country'] != '') // A country is selected
   {
+    echo "A country is selected";
     $from  .= ' INNER JOIN moviecountry ON id = movieid';
     $where .= " AND countryid = :countryid";
     $placeholders[':countryid'] = $_GET['country'];
   }
   if ($_GET['text'] != '') // Some search text was specified
   {
+    echo "Some search text was specified";
     $where .= " AND movietext LIKE :movietext";
     $placeholders[':movietext'] = '%' . $_GET['text'] . '%';
   }
   try {
-    $sql = $select . $from . $where; $s = $pdo->prepare($sql); $s->execute($placeholders);
+    $sql = $select . $from . $where; 
+    $s = $pdo->prepare($sql); 
+    $s->execute($placeholders);
   }
   catch (PDOException $e)
   {
@@ -324,8 +335,7 @@ if (isset($_GET['action']) and $_GET['action'] == 'search')
   }
   foreach ($s as $row)
   {
-      $jokes[] = array('id' => $row['id'], 'text' =>
-      $row['movietext']);
+      $movies[] = array('id' => $row['id'], 'moviename' => $row['moviename']);
   }
   include 'movies.html.php';
   exit(); 

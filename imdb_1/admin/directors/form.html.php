@@ -10,14 +10,16 @@
 <form action="?<?php htmlout($action); ?>" method="post">
       <div>
         <label for="name">Name: <input type="text" name="name"
-id="name" value="<?php htmlout($name); ?>"></label> </div>
+id="name" value="<?php htmlout($name); ?>"></label> 
+	  </div>
       <div>
-        <label for="country">Country: <input type="text" name="country"
-id="country" value="<?php htmlout($country); ?>"></label> </div>
-<div>
-<input type="hidden" name="id" value="<?php
-htmlout($id); ?>">
-<input type="submit" value="<?php htmlout($button); ?>">
+        <label for="countryid">Country: <input type="text" name="countryid"
+id="countryid" value="<?php htmlout($countryid); ?>"></label> 
+	  </div>
+	  <div>
+		<input type="hidden" name="id" value="<?php
+		  htmlout($id); ?>">
+		<input type="submit" value="<?php htmlout($button); ?>">
       </div>
     </form>
   </body>

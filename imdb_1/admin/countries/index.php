@@ -3,6 +3,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] .
     '/includes/magicquotes.inc.php';
 if (isset($_GET['add']))
 {
+  //echo "add in countries.index.php";
   $pageTitle = 'New Country';
   $action = 'addform';
   $name = '';
@@ -13,6 +14,7 @@ if (isset($_GET['add']))
 }
 if (isset($_GET['addform']))
 {
+  //echo "addform in countries.index.php";
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   try {
     $sql = 'INSERT INTO country SET
@@ -33,6 +35,7 @@ if (isset($_GET['addform']))
 
 if (isset($_POST['action']) and $_POST['action'] == 'Edit')
 {
+  //echo "Edit in countries.index.php";
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   try {
     $sql = 'SELECT id, name FROM country WHERE id = :id';
@@ -57,6 +60,7 @@ if (isset($_POST['action']) and $_POST['action'] == 'Edit')
 }
 if (isset($_GET['editform']))
 {
+  //echo "editform in countries.index.php";
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   try {
     $sql = 'UPDATE country SET
@@ -78,6 +82,7 @@ if (isset($_GET['editform']))
 }
 if (isset($_POST['action']) and $_POST['action'] == 'Delete')
 {
+  //echo "Delete country " . $_POST['id'] . " in countries.index.php";
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   // Delete movie associations with this country
   try
@@ -110,6 +115,7 @@ if (isset($_POST['action']) and $_POST['action'] == 'Delete')
   header('Location: .');
   exit(); 
 }
+
 // Display country list
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
 try {
