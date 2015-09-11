@@ -23,22 +23,22 @@
       <div class="collapse navbar-collapse navHeaderCollapse">
           <ul class="nav navbar-nav navbar-right">
               <li>
-                  <a href="#"> Home </a>
+                  <a href=".."> Home </a>
               </li>
               <li class = "active"  >
-                  <a href="movies/"> Movies </a>
+                  <a href="?goview"> Movies </a>
               </li>
               <li class = "dropdown">
                   <a href="#" class= "dropdown-toggle" data-toggle="dropdown"> Director <b class = "caret"></b> </a>
                   <ul class = "dropdown-menu">
-                      <li> <a href="directors/"> Director </a> </li>
+                      <li> <a href="../directors/"> Director </a> </li>
                       <li> <a href="#"> Reserved </a> </li>
                       <li> <a href="#"> Reserved+ </a> </li>
                       <li> <a href="#"> Reserved </a> </li>
                   </ul>
               </li>
               <li>
-                  <a href="countries/"> Country </a>
+                  <a href="../countries/"> Country </a>
               </li>
               <li>
                   <a href="#contact" data-toggle="modal"> Contact </a>
@@ -48,67 +48,69 @@
       </div>
     </div>
 
-    <div class="container">
-      <div class="jumbotron">
-        <center><h1 > Can't find? </h1>
-        <p> Just add your own as long as we have the country and director. Please add the director if there isn't one yet. </p>
-        <a href="?add" class="btn btn-default">Add new movie</a>
-        <a href="../directors/" class="btn btn-info">  Add director </a> </center>
-      </div>
-    </div>
+    
 
     <div class="container">
-      <div class = "row">
+      <div class = "row">  
 
-        <div class = "col-md-3">
-          <h3> <a href = "movies/">  </a> </h3>
-          <p> <p>
-          
-        </div>
-
-
-        <div class = "col-md-6">
+        <div class = "col-md-6 col-md-offset-3">
           <div class = "panel panel-default">
             <div class = "panel-body">
               <div class = "page-header">
-                <h3> View movies satisfying the following criteria:  </h3>
+                <h3> View movies with the following criteria:  </h3>
               </div>
-              <form action="" method="get">
-              <div>
-                <label for="director">By director:</label>
-                <select name="director" id="director">
-                  <option value="">Any director</option>
-                  <?php foreach ($directors as $director): ?>
-                    <option value="<?php htmlout($director['id']); ?>"><?php
-                        htmlout($director['name']); ?></option>
-                  <?php endforeach; ?>
-                </select>
-          </div> <div>
-                <label for="country">By country:</label>
-                <select name="country" id="country">
-                  <option value="">Any country</option>
-                  <?php foreach ($countries as $country): ?>
-                    <option value="<?php htmlout($country['id']); ?>"><?php
-                        htmlout($country['name']); ?></option>
-                  <?php endforeach; ?>
-                </select>
-          </div> <div>
-                <label for="text">Containing text:</label>
-                <input type="text" name="text" id="text">
-              </div>
-              <div>
-                <input type="hidden" name="action" value="search" >
-                <input type="submit" value="Search" class="btn btn-default">
-              </div>
+              <form action="" method="get" class = "form-horizontal">
+                <div class = "form-group">
+
+                  <label for="director" class = "col-lg-5 control-label">By director:</label>
+                  <div class = "col-lg-6">
+                    <select name="director" id="director" class = "form-control">
+                      <option value="">Any director</option>
+                      <?php foreach ($directors as $director): ?>
+                        <option value="<?php htmlout($director['id']); ?>"><?php
+                            htmlout($director['name']); ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+
+
+                </div> 
+                <div class = "form-group">
+                  <label for="country" class = "col-lg-5 control-label">By country:</label>
+                  <div class = "col-lg-6">
+                    <select name="country" id="country" class = "form-control">
+                      <option value="">Any country</option>
+                      <?php foreach ($countries as $country): ?>
+                        <option value="<?php htmlout($country['id']); ?>"><?php
+                            htmlout($country['name']); ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </div> 
+                <div class = "form-group">
+                  
+
+                  <label for="text" class = "col-lg-5 control-label">Containing text:</label>
+                  <div class = "col-lg-6">
+                    <input type="text" name="text" id="text" placeholder = "Pulp Fiction" class = "form-control">
+                  </div>
+                </div>
+                <div>  
+
+                  <input type="hidden" name="action" value="search" >
+                  <input type="submit" value="Search" class="btn btn-default pull-right">
+                </div>
               </form>
             </div>
           </div>
         </div>
 
-        
       </div>
 
     </div>
+
+
+
 
 
 

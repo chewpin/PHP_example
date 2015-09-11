@@ -25,8 +25,8 @@
               <li>
                   <a href=".."> Home </a>
               </li>
-              <li class = "active"  >
-                  <a href="movies/"> Movies </a>
+              <li class = "active">
+                  <a href="?goview"> Movies </a>
               </li>
               <li class = "dropdown">
                   <a href="#" class= "dropdown-toggle" data-toggle="dropdown"> Director <b class = "caret"></b> </a>
@@ -38,7 +38,7 @@
                   </ul>
               </li>
               <li>
-                  <a href="countries/"> Country </a>
+                  <a href="../countries/"> Country </a>
               </li>
               <li>
                   <a href="#contact" data-toggle="modal"> Contact </a>
@@ -52,38 +52,39 @@
 
     <div class="container">
       <div class="jumbotron">
-        <center><h1 > Can't find? </h1>
-        <p> Just add your own as long as we have the country and director. Please add the director if there isn't one yet. </p>
+        <center><h1> Can't find? </h1>
+        <p> Just add your own as long as we have the director. Please add the director otherwise. </p>
         <a href="?add" class="btn btn-default">Add new movie</a>
-        <a href="../directors/" class="btn btn-info">  Add director </a> </center>
+        <a href="../directors/" class="btn btn-info">  Add director </a> 
+        <a href="?gosearchpage" class="btn btn-primary">  New Serach </a>
+      </center>
       </div>
     </div>
     
     <div class="container">
       <div class ="row">
-        <div class = "col-md-3">
-          <h3> <a href = "movies/">  </a> </h3>
-          <p> <p>
-        </div>
+        
 
-        <div class = "col-md-6">
+        <div class = "col-md-8 col-md-offset-2">
           <div class = "panel panel-default">
             <div class = "panel-body">
-              <div class = "page-header">
-                <h3> Search Results <a href="?gosearchpage" class="btn btn-success pull-right">New search </a>  </h3>
-              </div>
+              
               <form action="" method="get">
                 <div>
                   <?php if (isset($movies)): ?>
                   <table class="table table-striped">
                     <tr>
                       <th>Movie Name</th>
-                      <th>Options</th>
+                      <th>Director</th>
+                      <th>Score</th>
+                      <th></th>
                     </tr> 
 
                     <?php foreach ($movies as $movie): ?>
                     <tr>
-                      <td><?php htmlout($movie['moviename']); ?></td> 
+                      <td class = "col-md-4"><?php htmlout($movie['moviename']); ?></td> 
+                      <td class = "col-md-3"><?php htmlout($directors[ $movie['directorid'] ]['name']); ?></td> 
+                      <td class = "col-md-2"><?php htmlout($movie['score']); ?></td> 
                       <td>
                         <form action="?" method="post">
                           <div>

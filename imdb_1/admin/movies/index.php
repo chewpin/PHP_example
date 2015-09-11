@@ -295,7 +295,7 @@ if (isset($_GET['gosearchpage']) || isset($_GET['goview']) )
 {
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   try {
-    $result = $pdo->query('SELECT id, moviename FROM movie ORDER BY moviename ASC');
+    $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ORDER BY moviename ASC');
   }
   catch (PDOException $e)
   {
@@ -305,7 +305,7 @@ if (isset($_GET['gosearchpage']) || isset($_GET['goview']) )
   }
   foreach ($result as $row)
   {
-    $movies[] = array('id' => $row['id'], 'moviename' => $row['moviename']);
+    $movies[] = array('id' => $row['id'], 'moviename' => $row['moviename'], 'directorid' => $row['directorid'], 'score' => $row['score']);
   }
   try {
     $result = $pdo->query('SELECT id, name FROM director ORDER BY name ASC');
@@ -351,20 +351,20 @@ if (isset($_GET['action']) and $_GET['action'] == 'search')
   $placeholders = array();
   if ($_GET['director'] != '') // A director is selected
   {
-    echo "A director is selected";
+    //echo "A director is selected";
     $where .= " AND directorid = :directorid";
     $placeholders[':directorid'] = $_GET['director'];
   }
   if ($_GET['country'] != '') // A country is selected
   {
-    echo "A country is selected";
+    //echo "A country is selected";
     $from  .= ' INNER JOIN moviecountry ON id = movieid';
     $where .= " AND countryid = :countryid";
     $placeholders[':countryid'] = $_GET['country'];
   }
   if ($_GET['text'] != '') // Some search text was specified
   {
-    echo "Some search text was specified";
+    //echo "Some search text was specified";
     $where .= " AND movietext LIKE :movietext ORDER BY name ASC";
     $placeholders[':movietext'] = '%' . $_GET['text'] . '%';
   }
@@ -395,7 +395,7 @@ if (isset($_GET['action']) and $_GET['action'] == 'search')
 // Display search form
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
 try {
-  $result = $pdo->query('SELECT id, moviename FROM movie ORDER BY moviename ASC');
+  $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ORDER BY moviename ASC');
 }
 catch (PDOException $e)
 {
@@ -405,7 +405,7 @@ catch (PDOException $e)
 }
 foreach ($result as $row)
 {
-  $movies[] = array('id' => $row['id'], 'moviename' => $row['moviename']);
+  $movies[] = array('id' => $row['id'], 'moviename' => $row['moviename'], 'directorid' => $row['directorid'], 'score' => $row['score']);
 }
 try {
   $result = $pdo->query('SELECT id, name FROM director ORDER BY name ASC');
