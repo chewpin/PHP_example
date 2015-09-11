@@ -17,12 +17,10 @@
  -->
 
 
-
-
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bootstrap 101 Template</title>
+    <title>My IMDB</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../../boot/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="../../boot/css/style.css" rel="stylesheet">
@@ -33,7 +31,7 @@
 
             <div class="navbar-header">
 
-                <a href="#" class = "navbar-brand"> my site </a>
+                <a href="#" class = "navbar-brand"> My IMDB </a>
                 <button class = "navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -48,7 +46,7 @@
                         <a href="#"> Home </a>
                     </li>
                     <li>
-                        <a href="movies/"> Movie </a>
+                        <a href="movies/"> Movies </a>
                     </li>
                     <li class = "dropdown">
                         <a href="#" class= "dropdown-toggle" data-toggle="dropdown"> Director <b class = "caret"></b> </a>
@@ -88,21 +86,21 @@
 
       <div class = "row">
         <div class = "col-md-3">
-          <h3> <a href = "movies/"> See the movies list </a> </h3>
-          <p> This is the full list. I think my current selection is quite simple. I onyly updated the countries and a bit of the famous and highly popular directors. As fore movies, I need to put in some more, obviously. <p>
-          <a href="movies/" class="btn btn-default"> Manage movies </a>
+          <h3> <a href = "movies/"> The best Linklater film? </a> </h3>
+          <p> This is an article talking about Linklater's before triology Surise, Sunset, Midnight: which is the best? Or even, is ayone of them the best of Linklater? His recent work, Boyhood, also gained recognition and incredible reviews. However, apparently the before triology is still many&rsquo; beloved treasure. Read on and be reminded of the fantastic story of Jesse and Celine one more time.<p>
+          <a href="read1.html" class="btn btn-default"> Read more </a>
         </div>
 
         <div class = "col-md-3">
-          <h3> <a href = "directors/"> See the directors list </a> </h3>
-          <p> This is the full list. I think my current selection is quite simple. I onyly updated the countries and a bit of the famous and highly popular directors. As fore movies, I need to put in some more, obviously.<p>
-          <a href="directors/" class="btn btn-default"> Manage movies </a>
+          <h3> <a href = "movies/"> Favorite films </a> </h3>
+          <p> This is the full list. I think my current selection is quite simple. Now I only updated the countries and a bit of the famous and highly popular directors. As for movies, I need to put in some more, obviously.<p>
+          <a href="directors/" class="btn btn-default"> See </a>
         </div>
 
         <div class = "col-md-3">
-          <h3> <a href = "countries/"> See the countries list </a> </h3>
-          <p> This is the full list. I think my current selection is quite simple. I onyly updated the countries and a bit of the famous and highly popular directors. As fore movies, I need to put in some more, obviously.<p>
-          <a href="countries/" class="btn btn-default"> Manage movies </a>
+          <h3> <a href = "countries/"> Best directors </a> </h3>
+          <p> The more famous ones are here.<p>
+          <a href="countries/" class="btn btn-default"> See </a>
         </div>
 
         <div class = "col-md-3">
@@ -131,21 +129,44 @@
 
         <div class="modal-content">
 
-          <div class="modal-header">
-            <h4> Contact my site </h4>
-          </div>
+          
+          <form class = "form-horizontal">
+            <div class="modal-header">
+              <h4> Contact my site </h4>
+            </div>
 
-          <div class= "modal-body">
-            <p> Hey! Thanks so much for trying this button out haha. </p>
-            <p> My contact details are listed in my homepage. 
-              Please find me there! ;) </p>
-          </div>
+            <div class= "modal-body">
+              
+              <div class = "form-group">
+                <label for = "contact-name" class = "col-lg-2 control-label"> Name: </label>
+                <div class = "col-lg-10">
+                  <input type = "text" class = "form-control" id = "contact-name" placeholder = "Full Name">
+                </div>
+              </div>
+
+              <div class = "form-group">
+                <label for = "contact-email" class = "col-lg-2 control-label"> Email: </label>
+                <div class = "col-lg-10">
+                  <input type = "email" class = "form-control" id = "contact-email" placeholder = "you@example.com">
+                </div>
+              </div>
+
+              <div class = "form-group">
+                <label for = "contact-msg" class = "col-lg-2 control-label"> Email: </label>
+                <div class = "col-lg-10">
+                  <textarea class = "form-control" rows = 8> </textarea>
+                </div>
+              </div>
 
 
-          <div class = "modal-footer">
-            <a href="../../homepage/" class="btn btn-default"> Visit </a>
-            <a class="btn btn-primary" data-dismiss="modal"> Close </a>
-          </div>
+            </div>
+
+
+            <div class = "modal-footer">
+              <a class="btn btn-default" data-dismiss="modal"> Close </a>
+              <button class = "btn btn-primary" type = "submit"> Send </button>
+            </div>
+          </form>
 
 
         </div>

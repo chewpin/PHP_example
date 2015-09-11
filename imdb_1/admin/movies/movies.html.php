@@ -3,10 +3,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <!-- <meta charset="utf-8"> -->
     <title>Manage Movies: Search Results</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../../boot/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="../../../boot/css/style.css" rel="stylesheet">
   </head>
   <body>
+
+
+
     <h1>Search Results</h1>
     <?php if (isset($movies)): ?>
 <table>
@@ -27,5 +33,20 @@
     <?php endif; ?>
     <p><a href="?">New search</a></p>
     <p><a href="..">Return to JMS home</a></p>
+
+
+
+    <div class = "navbar navbar-default navbar-fixed-bottom">
+      <div class = "container">
+        <p class = "navbar-text pull-left"> Site built by Jessica 
+        </p>
+        <a href = "../../homepage" class = "navbar-btn btn-default btn pull-right"> Visit my website </a>
+      </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script src="../../../boot/js/bootstrap.js"></script>
+
   </body>
 </html>
