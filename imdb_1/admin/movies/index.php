@@ -13,7 +13,7 @@ if (isset($_GET['add']))
   // Build the list of directos
   try
   {
-    $result = $pdo->query('SELECT id, name FROM director ORDER BY name ASC');
+    $result = $pdo->query('SELECT id, name FROM director');
   }
   catch (PDOException $e)
   {
@@ -28,7 +28,7 @@ if (isset($_GET['add']))
   // Build the list of countries
   try
   {
-    $result = $pdo->query('SELECT id, name FROM country ORDER BY name ASC');
+    $result = $pdo->query('SELECT id, name FROM country');
   }
   catch (PDOException $e)
   {
@@ -74,7 +74,7 @@ if (isset($_POST['action']) and $_POST['action'] == 'Edit')
   // Build the list of directors
   try
   {
-    $result = $pdo->query('SELECT id, name FROM director ORDER BY name ASC');
+    $result = $pdo->query('SELECT id, name FROM director');
   }
   catch (PDOException $e)
   {
@@ -106,7 +106,7 @@ if (isset($_POST['action']) and $_POST['action'] == 'Edit')
   // Build the list of all countries
   try
   {
-    $result = $pdo->query('SELECT id, name FROM country ORDER BY name ASC');
+    $result = $pdo->query('SELECT id, name FROM country');
   }
   catch (PDOException $e)
   {
@@ -295,7 +295,7 @@ if (isset($_GET['gosearchpage']) || isset($_GET['goview']) )
 {
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   try {
-    $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ORDER BY moviename ASC');
+    $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie');
   }
   catch (PDOException $e)
   {
@@ -308,7 +308,7 @@ if (isset($_GET['gosearchpage']) || isset($_GET['goview']) )
     $movies[] = array('id' => $row['id'], 'moviename' => $row['moviename'], 'directorid' => $row['directorid'], 'score' => $row['score']);
   }
   try {
-    $result = $pdo->query('SELECT id, name FROM director ORDER BY name ASC');
+    $result = $pdo->query('SELECT id, name FROM director');
   }
   catch (PDOException $e)
   {
@@ -321,7 +321,7 @@ if (isset($_GET['gosearchpage']) || isset($_GET['goview']) )
     $directors[] = array('id' => $row['id'], 'name' => $row['name']);
   }
   try {
-    $result = $pdo->query('SELECT id, name FROM country ORDER BY name ASC');
+    $result = $pdo->query('SELECT id, name FROM country');
   }
   catch (PDOException $e)
   {
@@ -340,12 +340,14 @@ if (isset($_GET['gosearchpage']) || isset($_GET['goview']) )
 
 
 
+
+
 if (isset($_GET['action']) and $_GET['action'] == 'search')
 {
   //echo "Searching start";
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   // The basic SELECT statement
-  $select = 'SELECT id, moviename';
+  $select = 'SELECT id, moviename, directorid, score';
   $from   = ' FROM movie';
   $where  = ' WHERE TRUE';
   $placeholders = array();
@@ -365,7 +367,7 @@ if (isset($_GET['action']) and $_GET['action'] == 'search')
   if ($_GET['text'] != '') // Some search text was specified
   {
     //echo "Some search text was specified";
-    $where .= " AND movietext LIKE :movietext ORDER BY name ASC";
+    $where .= " AND movietext LIKE :movietext";
     $placeholders[':movietext'] = '%' . $_GET['text'] . '%';
   }
   try {
@@ -381,7 +383,20 @@ if (isset($_GET['action']) and $_GET['action'] == 'search')
   }
   foreach ($s as $row)
   {
-      $movies[] = array('id' => $row['id'], 'moviename' => $row['moviename']);
+      $movies[] = array('id' => $row['id'], 'moviename' => $row['moviename'], 'directorid' => $row['directorid'], 'score' => $row['score']);
+  }
+  try {
+    $result = $pdo->query('SELECT id, name FROM director');
+  }
+  catch (PDOException $e)
+  {
+    $error = 'Error fetching directors from database!';
+    include 'error.html.php';
+    exit(); 
+  }
+  foreach ($result as $row)
+  {
+    $directors[] = array('id' => $row['id'], 'name' => $row['name']);
   }
   include 'movies.html.php';
   exit(); 
@@ -395,7 +410,7 @@ if (isset($_GET['action']) and $_GET['action'] == 'search')
 // Display search form
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
 try {
-  $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ORDER BY moviename ASC');
+  $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ');
 }
 catch (PDOException $e)
 {
@@ -408,7 +423,7 @@ foreach ($result as $row)
   $movies[] = array('id' => $row['id'], 'moviename' => $row['moviename'], 'directorid' => $row['directorid'], 'score' => $row['score']);
 }
 try {
-  $result = $pdo->query('SELECT id, name FROM director ORDER BY name ASC');
+  $result = $pdo->query('SELECT id, name FROM director');
 }
 catch (PDOException $e)
 {
@@ -421,7 +436,7 @@ foreach ($result as $row)
   $directors[] = array('id' => $row['id'], 'name' => $row['name']);
 }
 try {
-  $result = $pdo->query('SELECT id, name FROM country ORDER BY name ASC');
+  $result = $pdo->query('SELECT id, name FROM country');
 }
 catch (PDOException $e)
 {
@@ -436,7 +451,89 @@ foreach ($result as $row)
 include 'movies.html.php';
 
 
+function getdirector($directorid)
+{
+  getallinfo ($movies, $directors, $countries);
+  $ret = "";
+  searchinarray($directors, 'id', $directorid, $ret);
+  return $ret;
+}
 
+function searchinarray($array, $key, $value, &$ret)
+{
+  $result = array();
+
+  if (is_array($array)) {
+      if (isset($array[$key]) && $array[$key] == $value) {
+          $result = $array;
+          $ret = $array['name'];
+      }
+
+      foreach ($array as $subarray) {
+        $result = searchinarray($subarray, $key, $value, $ret);
+        $i = $i + 1;
+      }
+  }
+  return;
+}
+
+
+function getmovieinfo (&$movies) {
+  include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
+  try {
+    $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ');
+  }
+  catch (PDOException $e)
+  {
+    $error = 'Error fetching movies from database!';
+    include 'error.html.php';
+    exit(); 
+  }
+  foreach ($result as $row)
+  {
+    $movies[] = array('id' => $row['id'], 'moviename' => $row['moviename'], 'directorid' => $row['directorid'], 'score' => $row['score']);
+  }
+}
+
+function getdirectorinfo (&$directors) {
+  include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
+  try {
+    $result = $pdo->query('SELECT id, name FROM director');
+  }
+  catch (PDOException $e)
+  {
+    $error = 'Error fetching directors from database!';
+    include 'error.html.php';
+    exit(); 
+  }
+  foreach ($result as $row)
+  {
+    $directors[] = array('id' => $row['id'], 'name' => $row['name']);
+  }
+}
+
+function getcountryinfo (&$countries) {
+  include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php'; 
+  try {
+    $result = $pdo->query('SELECT id, name FROM country');
+  }
+  catch (PDOException $e)
+  {
+    $error = 'Error fetching countries from database!';
+    include 'error.html.php';
+    exit();
+  }
+  foreach ($result as $row)
+  {
+    $countries[] = array('id' => $row['id'], 'name' => $row['name']);
+  }
+}
+
+function getallinfo (&$movies, &$directors, &$countries) {
+  getmovieinfo ($movies);
+  getdirectorinfo ($directors);
+  getcountryinfo ($countries);
+}
 
 ?>
 

@@ -59,8 +59,8 @@
     <div class="container">
       <div class="jumbotron">
         <center><h2> Missing director? 
-        <a href="../directors/" class="btn btn-info">  Add director </a> 
-        <a href="../countries/" class="btn btn-primary">  Add country </a> </h2>
+        <a href="../directors/" class="btn btn-default">  Add director </a> 
+        <a href="../countries/" class="btn btn-info">  Add country </a> </h2>
       </center>
       </div>
     </div>
@@ -71,11 +71,12 @@
 
     <div class="container">
       <div class = "row">  
-        <div class = "col-md-10 col-md-offset-1">
+        <div class = "col-md-8 col-md-offset-2">
           <div class = "panel panel-default">
             <div class = "panel-body">
-              <div class = "page-header">
-                <h3> <?php htmlout($pageTitle); ?>  </h3>
+              <div class = "page-header col-md-offset-2">
+                <h3 > <?php htmlout($pageTitle); ?> 
+                </h3>
               </div>
               <form action="?<?php htmlout($action); ?>" method="post" class = "form-horizontal">
                 <div class = "form-group">
@@ -132,11 +133,12 @@
 
                 </div>
 
-                <div>  
+                <div>
                   <input type="hidden" name="id" value="<?php
-                      htmlout($id); ?>">
-                  <input type="submit" value="<?php htmlout($button); ?>" class="btn btn-default pull-right">
+                    htmlout($id); ?>">
+                  <input type="submit" value="<?php htmlout($button); ?>" class="btn btn-success pull-right"> 
                 </div>
+
               </form>
             </div>
           </div>
@@ -152,14 +154,14 @@
 
 
 
-
-
-    <div class = "navbar navbar-default navbar-fixed-bottom">
-      <div class = "container">
-        <a href = ".." class = "navbar-btn btn-info btn pull-right "> Return to homepage </a>
-        <a href = "?goview" class = "navbar-btn btn-default btn pull-right"> Return to view movies </a>
-      </div>
-    </div>   
+    <div class='wrapper'>
+      <div class = "navbar  navbar-default navbar-fixed-bottom">
+        <div class = "container">
+          <a href = ".." class = "navbar-btn btn-info btn pull-right "> Return to homepage </a>
+          <a href = "?goview" class = "navbar-btn btn-default btn pull-right"> Return to view movies </a>
+        </div>
+      </div> 
+    </div>  
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="../../../boot/js/bootstrap.js"></script>
   </body>

@@ -83,8 +83,9 @@
                     <?php foreach ($movies as $movie): ?>
                     <tr>
                       <td class = "col-md-4"><?php htmlout($movie['moviename']); ?></td> 
-                      <td class = "col-md-3"><?php htmlout($directors[ $movie['directorid'] ]['name']); ?></td> 
-                      <td class = "col-md-2"><?php htmlout($movie['score']); ?></td> 
+
+                      <td class = "col-md-3"><?php htmlout(getdirector($movie['directorid'])); ?></td> 
+                      <td class = "col-md-1"><?php htmlout($movie['score']); ?></td> 
                       <td>
                         <form action="?" method="post">
                           <div>
@@ -106,14 +107,15 @@
       </div>
     </div>
 
-
-    <div class = "navbar navbar-default navbar-fixed-bottom">
-      <div class = "container">
-        <p class = "navbar-text pull-left"> 
-        </p>
-        <a href = ".." class = "navbar-btn btn-default btn pull-right"> Return to homepage </a>
-      </div>
-    </div>    
+    <div class='wrapper'>
+      <div class = "navbar  navbar-default navbar-fixed-bottom">
+        <div class = "container">
+          <p class = "navbar-text pull-left"> 
+          </p>
+          <a href = ".." class = "navbar-btn btn-default btn pull-right"> Return to homepage </a>
+        </div>
+      </div>  
+    </div>  
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="../../../boot/js/bootstrap.js"></script>
   </body>

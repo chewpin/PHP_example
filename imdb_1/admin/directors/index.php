@@ -11,20 +11,7 @@ if (isset($_GET['add']))
   $countryid = '';
   $id = '';
   $button = 'Add director';
-  try {
-    $result = $pdo->query('SELECT id, name FROM country ORDER BY name ASC');
-  }
-  catch (PDOException $e)
-  {
-    $error = 'Error fetching countries from database!';
-    include 'error.html.php';
-    exit();
-  }
-  foreach ($result as $row)
-  {
-    //echo "1";
-    $countries[] = array('id' => $row['id'], 'name' => $row['name']);
-  }
+  getcountryinfo ($countries);
   include 'form.html.php';
   exit(); 
 }
@@ -113,19 +100,7 @@ if (isset($_GET['editform']))
 
 
 
-try {
-  $result = $pdo->query('SELECT id, name FROM director ORDER BY name ASC');
-}
-catch (PDOException $e)
-{
-  $error = 'Error fetching directors from the database!';
-  include 'error.html.php';
-  exit();
-}
-foreach ($result as $row)
-{
-  $directors[] = array('id' => $row['id'], 'name' => $row['name']);
-}
+getdirectorinfo ( $directors);
 
 include 'directors.html.php';
 
@@ -202,5 +177,97 @@ if (isset($_POST['action']) and $_POST['action'] == 'Delete')
   header('Location: .');
   exit(); 
 } // END if (isset($_POST['action']) and $_POST['action'] == 'Delete')
+
+
+
+
+
+
+
+function getcountryfromdirector ( $countryid ) {
+  getcountryinfo($countries);
+  return searchinarray($countries, 'id', $countryid, 0)['name'];
+}
+
+
+function searchinarray($array, $key, $value, $i)
+{
+  
+  $result = array();
+
+  if (is_array($array)) {
+      if (isset($array[$key]) && $array[$key] == $value) {
+          $result = $array;
+          echo $result['name'];
+          return $result;
+          echo "wrong";
+      }
+
+      foreach ($array as $subarray) {
+        $result = searchinarray($subarray, $key, $value, $i);
+        $i = $i + 1;
+      }
+  }
+  return;
+}
+
+function getcountryinfo (&$countries) {
+  include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
+  try {
+    $result = $pdo->query('SELECT id, name FROM country');
+  }
+  catch (PDOException $e)
+  {
+    $error = 'Error fetching countries from database!';
+    include 'error.html.php';
+    exit();
+  }
+  foreach ($result as $row)
+  {
+    $countries[] = array('id' => $row['id'], 'name' => $row['name']);
+  }
+}
+
+function getdirectorinfo (&$directors) {
+  include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
+  try {
+    $result = $pdo->query('SELECT id, name, countryid FROM director');
+  }
+  catch (PDOException $e)
+  {
+    $error = 'Error fetching directors from the database!';
+    include 'error.html.php';
+    exit();
+  }
+  foreach ($result as $row)
+  {
+    $directors[] = array('id' => $row['id'], 'name' => $row['name'], 'countryid' => $row['countryid']);
+  }
+}
+
+function getmovieinfo (&$movies) {
+  include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
+  try {
+    $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ');
+  }
+  catch (PDOException $e)
+  {
+    $error = 'Error fetching movies from database!';
+    include 'error.html.php';
+    exit(); 
+  }
+  foreach ($result as $row)
+  {
+    $movies[] = array('id' => $row['id'], 'moviename' => $row['moviename'], 'directorid' => $row['directorid'], 'score' => $row['score']);
+  }
+}
+
+
+function getallinfo (&$movies, &$directors, &$countries) {
+  getmovieinfo($movies);
+  getdirectorinfo($directors);
+  getcountryinfo($countries);
+}
+
 
 ?>

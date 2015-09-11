@@ -34,3 +34,10 @@ body {
         }
     }
 }
+.wrapper .navbar {
+   background-color: transparent;
+   background: transparent;
+   border-color: transparent;
+}
+
+.wrapper .navbar li { color: #000 } 
