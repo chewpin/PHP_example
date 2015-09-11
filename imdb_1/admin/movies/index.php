@@ -454,7 +454,6 @@ include 'movies.html.php';
 function getdirector($directorid)
 {
   getallinfo ($movies, $directors, $countries);
-  $ret = "";
   searchinarray($directors, 'id', $directorid, $ret);
   return $ret;
 }
@@ -462,17 +461,15 @@ function getdirector($directorid)
 function searchinarray($array, $key, $value, &$ret)
 {
   $result = array();
-
   if (is_array($array)) {
-      if (isset($array[$key]) && $array[$key] == $value) {
-          $result = $array;
-          $ret = $array['name'];
-      }
-
-      foreach ($array as $subarray) {
-        $result = searchinarray($subarray, $key, $value, $ret);
-        $i = $i + 1;
-      }
+    if (isset($array[$key]) && $array[$key] == $value) {
+        $result = $array;
+        $ret = $array['name'];
+    }
+    foreach ($array as $subarray) {
+      $result = searchinarray($subarray, $key, $value, $ret);
+      $i = $i + 1;
+    }
   }
   return;
 }

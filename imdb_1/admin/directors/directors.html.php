@@ -65,9 +65,10 @@
               <table class="table table-striped"> 
 
                 <tr>
-                    <h1>Manage Directors</h1>
+                    <h2></h2>
                     <th>Director</th>
                     <th>Country</th>
+                    <th></th>
                     <th></th>
                 </tr>
 

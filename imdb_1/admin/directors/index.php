@@ -66,6 +66,7 @@ if (isset($_POST['action']) and $_POST['action'] == 'Edit')
   $countryid = $row['countryid'];
   $id = $row['id'];
   $button = 'Update director';
+  getcountryinfo($countries);
   include 'form.html.php';
   exit(); 
 }
@@ -186,25 +187,21 @@ if (isset($_POST['action']) and $_POST['action'] == 'Delete')
 
 function getcountryfromdirector ( $countryid ) {
   getcountryinfo($countries);
-  return searchinarray($countries, 'id', $countryid, 0)['name'];
+  searchinarray($countries, 'id', $countryid, $ret);
+  return $ret;
 }
 
 
-function searchinarray($array, $key, $value, $i)
+function searchinarray($array, $key, $value, &$ret)
 {
-  
   $result = array();
-
   if (is_array($array)) {
       if (isset($array[$key]) && $array[$key] == $value) {
           $result = $array;
-          echo $result['name'];
-          return $result;
-          echo "wrong";
+          $ret = $array['name'];
       }
-
       foreach ($array as $subarray) {
-        $result = searchinarray($subarray, $key, $value, $i);
+        $result = searchinarray($subarray, $key, $value, $ret);
         $i = $i + 1;
       }
   }
@@ -214,7 +211,7 @@ function searchinarray($array, $key, $value, $i)
 function getcountryinfo (&$countries) {
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   try {
-    $result = $pdo->query('SELECT id, name FROM country');
+    $result = $pdo->query('SELECT id, name FROM country ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -231,7 +228,7 @@ function getcountryinfo (&$countries) {
 function getdirectorinfo (&$directors) {
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   try {
-    $result = $pdo->query('SELECT id, name, countryid FROM director');
+    $result = $pdo->query('SELECT id, name, countryid FROM director ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -248,7 +245,7 @@ function getdirectorinfo (&$directors) {
 function getmovieinfo (&$movies) {
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   try {
-    $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ');
+    $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
