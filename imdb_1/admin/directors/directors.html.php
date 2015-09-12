@@ -24,10 +24,10 @@
               <li>
                   <a href=".."> Home </a>
               </li>
-              <li class = "active">
+              <li>
                   <a href="?goview"> Movies </a>
               </li>
-              <li class = "dropdown">
+              <li class = "dropdown active">
                   <a href="#" class= "dropdown-toggle" data-toggle="dropdown"> Director <b class = "caret"></b> </a>
                   <ul class = "dropdown-menu">
                       <li> <a href="../directors/"> Director </a> </li>
@@ -50,7 +50,7 @@
     <div class="container">
       <div class="jumbotron">
         <center><h2> Missing director? 
-        <a href="?add" class="btn btn-default">  Add director </a> 
+        <a href="?add" class="btn btn-info">  Add director </a> 
       </center>
       </div>
     </div>
@@ -107,7 +107,7 @@
     <div class = "wrapper">
       <div class = "navbar navbar-default navbar-fixed-bottom">
         <div class = "container">
-          <a href = ".." class = "navbar-btn btn-info btn pull-right "> Return to homepage </a>
+          <a href = ".." class = "navbar-btn btn-default btn pull-right "> Return to homepage </a>
         </div>
       </div>
     </div>

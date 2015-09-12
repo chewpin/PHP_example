@@ -52,7 +52,7 @@
     <div class="container">
       <div class="jumbotron">
         <center><h2> Missing country? 
-        <a href="../countries/" class="btn btn-info">  Add country </a> </h2>
+        <a href="../countries/" class="btn btn-default">  Add country </a> </h2>
       </center>
       </div>
     </div>
