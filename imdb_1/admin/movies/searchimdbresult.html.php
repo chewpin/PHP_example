@@ -37,17 +37,11 @@
                       <li> <a href="?goview"> Movies </a> </li>
                       <li> <a href="?gopopular"> Popular now </a> </li>
                       <li> <a href="?goupcoming"> Upcoming </a> </li>
-                      <li> <a href="#"> Reserved </a> </li>
+                      <li> <a href="highrated.html.php"> High rited </a> </li>
                   </ul>
               </li>
-              <li class = "dropdown">
-                  <a href="#" class= "dropdown-toggle" data-toggle="dropdown"> Director <b class = "caret"></b> </a>
-                  <ul class = "dropdown-menu">
-                      <li> <a href="../directors/"> Director </a> </li>
-                      <li> <a href="#"> Reserved </a> </li>
-                      <li> <a href="#"> Reserved+ </a> </li>
-                      <li> <a href="#"> Reserved </a> </li>
-                  </ul>
+              <li>
+                  <a href="../directors"> Director </a>
               </li>
               <li>
                   <a href="../countries/"> Country </a>
@@ -88,11 +82,7 @@
 
               <form action="?<?php htmlout($action); ?>" method="post" class = "form-horizontal">
                 <div class = "form-group">
-                  <label for="moviename" class = "col-lg-4 control-label">Type your movie name here:</label>
-                  <div class = "col-lg-6">
-                    <?php
-                      htmlout($moviename); ?>
-                  </div>
+                  
                 </div> 
 
 
@@ -100,34 +90,38 @@
                   <tr>
                     <th>Movie Name</th>
                     <th>Overview</th>
-                    <th>Iimdb id</th>
-                    <th></th>
+                    <th>Imdb id</th>
+                    <th> </th>
                   </tr> 
-
+                  <?php foreach ($movies as $movie): ?>
                   <tr>
-                    <td class = "col-md-4"><?php htmlout($moviename); ?></td> 
-                    <td class = "col-md-3"><?php htmlout(strip_tags($overview)); ?></td> 
-                    <td class = "col-md-2"><?php htmlout($imdbid); ?></td> 
+                    <td class = "col-md-4"><?php echo htmlspecialchars_decode($movie['moviename']); ?></td> 
+                    <td class = "col-md-3"><?php echo htmlspecialchars_decode(strip_tags($movie['overview'])); ?></td> 
+                    <td class = "col-md-2"><?php htmlout($movie['imdbid']); ?></td> 
                     <td>
                       <form action="?" method="post">
                         <div>
-                          <input type="hidden" name="moviename" value="<?php
-                            htmlout($moviename); ?>">
+                           <input type="hidden" name="moviename" value="<?php
+                            htmlout($movie['moviename']); ?>">
                           <input type="hidden" name="overview" value="<?php
-                          htmlout($overview); ?>">
+                          htmlout(strip_tags($movie['overview'])); ?>">
                           <input type="hidden" name="imdbid" value="<?php
-                          htmlout($imdbid); ?>">
-
+                          htmlout($movie['imdbid']); ?>">
 
                           <input type="hidden" name="id" value="<?php
                             htmlout($id); ?>">
-
-                          
-                          <input type="submit" value="<?php htmlout($button); ?>" class="btn btn-success pull-right"> 
+                          <input type="submit"  value="<?php htmlout($button); ?>" class="btn btn-success ">
                         </div>
                       </form>
                     </td>
+                    
+                     
                   </tr>
+                  <?php endforeach; ?>
+
+
+
+
                 </table>
                 
 

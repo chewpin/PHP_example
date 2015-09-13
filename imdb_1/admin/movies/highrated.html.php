@@ -31,7 +31,7 @@
                       <li> <a href="../movies"> Movies </a> </li>
                       <li> <a href="#"> Popular now </a> </li>
                       <li> <a href="upcoming.html.php"> Upcoming </a> </li>
-                      <li> <a href="highrated.html.php"> Highly rated </a> </li>
+                      <li> <a href="#"> Highly rated </a> </li>
                   </ul>
               </li>
               <li>
@@ -55,8 +55,8 @@
         <center><h1>  </h1>
         <h3> Live feed of popular films 
         <a href="../movies" class="btn btn-default"> Movies </a>
+        <a href="popular.html.php" class="btn btn-warning"> Popular now </a>
         <a href="upcoming.html.php" class="btn btn-info"> Upcoming </a>
-        <a href="highrated.html.php" class="btn btn-success">  Highly rated </a>
       </center>
       </div>
     </div>
@@ -74,11 +74,11 @@
               <form action="" method="get">
                 <div>
                   <?php 
-                  if (!isset($json_gopopular)) {
+                  if (!isset($json_gohighrated)) {
                     //echo "not setttt";
-                    $url1 = file_get_contents("http://api.themoviedb.org/3/movie/popular?api_key=0a497969dcb2f9f6c0f1007683a8df67");
+                    $url1 = file_get_contents("http://api.themoviedb.org/3/movie/top_rated?api_key=0a497969dcb2f9f6c0f1007683a8df67");
                     $json1 = json_decode($url1, true); //This will convert it to an array
-                    $json_gopopular = $json1['results'];
+                    $json_gohighrated = $json1['results'];
                   }
                   ?>
                   <table class="table table-striped">
@@ -93,7 +93,7 @@
 
                     
 
-                    <?php foreach ($json_gopopular as $item): ?>
+                    <?php foreach ($json_gohighrated as $item): ?>
                     <tr>
                       <td class = "col-md-4"><?php htmlout($item['title']); ?></td> 
 

@@ -31,17 +31,11 @@
                       <li> <a href="../movies"> Movies </a> </li>
                       <li> <a href="popular.html.php"> Popular now </a> </li>
                       <li> <a href="popular.html.php"> Upcoming </a> </li>
-                      <li> <a href="#"> Reserved </a> </li>
+                      <li> <a href="highrated.html.php"> Highly rated </a> </li>
                   </ul>
               </li>
-              <li class = "dropdown">
-                  <a href="#" class= "dropdown-toggle" data-toggle="dropdown"> Director <b class = "caret"></b> </a>
-                  <ul class = "dropdown-menu">
-                      <li> <a href="../directors/"> Director </a> </li>
-                      <li> <a href="#"> Reserved </a> </li>
-                      <li> <a href="#"> Reserved+ </a> </li>
-                      <li> <a href="#"> Reserved </a> </li>
-                  </ul>
+              <li>
+                  <a href="../directors"> Director </a>
               </li>
               <li>
                   <a href="../countries/"> Country </a>

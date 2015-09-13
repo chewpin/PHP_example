@@ -27,18 +27,19 @@
               </li>
               
 
-              <li class = "dropdown active">
+              <li class = "dropdown">
                   <a href="#" class= "dropdown-toggle " data-toggle="dropdown"> Movies <b class = "caret"></b> </a>
                   <ul class = "dropdown-menu">
-                      <li> <a href="#"> Movies </a> </li>
-                      <li> <a href="popular.html.php"> Popular now </a> </li>
-                      <li> <a href="upcoming.html.php"> Upcoming </a> </li>
-                      <li> <a href="highrated.html.php"> Highly rated </a> </li>
+                      <li> <a href="../movies"> Movies </a> </li>
+                      <li> <a href="../movies/popular.html.php"> Popular now </a> </li>
+                      <li> <a href="../movies/upcoming.html.php"> Upcoming </a> </li>
+                      <li> <a href="../movies/highrated.html.php"> Highly rated </a> </li>
+                      <li> <a href="#"> Reserved </a> </li>
                   </ul>
               </li>
 
 
-              <li>
+              <li class = "active">
                   <a href="../directors"> Director </a>
               </li>
               <li>
@@ -58,18 +59,13 @@
 
     <div class="container">
       <div class="jumbotron">
-        <center><h1> Can't find? </h1>
-        <p> Just add your own as long as we have the director. Please add the director otherwise.  </p>
-        <p>Or try add with IMDB below!</p>
-        <a href="?add" class="btn btn-default">Add new movie</a>
-        <a href="../directors/" class="btn btn-default"> Add director </a>
-        <a href="popular.html.php" class="btn btn-warning">Popular now</a>
-        <a href="upcoming.html.php" class="btn btn-info">Upcoming</a>
-        <a href="highrated.html.php" class="btn btn-success">Highly rated</a>
+        <center>
+        <h3> View all
+        <a href="../movies" class="btn btn-default"> Movies</a>
+        <a href="../movies/popular.html.php" class="btn btn-warning">Popular now</a>
+        <a href="../movies/upcoming.html.php" class="btn btn-info">Upcoming</a>
+        <a href="../movies/highrated.html.php" class="btn btn-success">Highly rated</a></h3>
         
-          <a href= "?gosearchpage" class="btn btn-default">  New Search </a>
-          <a href= "?gosearchimdb" class="btn btn-primary">  Search based on IMDB </a>
-
         
       </center>
       </div>
@@ -87,11 +83,11 @@
               <form action="" method="get">
                 <div>
                   <?php 
-                  if (!isset($movies) && !noresult) {
-                    echo "not set";
+                  if (!isset($movies)) {
+                    //echo "not set movies";
                     include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
                     try {
-                      $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ORDER BY moviename ASC ');
+                      $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ');
                     }
                     catch (PDOException $e)
                     {
@@ -103,6 +99,11 @@
                     {
                       $movies[] = array('id' => $row['id'], 'moviename' => $row['moviename'], 'directorid' => $row['directorid'], 'score' => $row['score']);
                     }
+                    
+                  }
+                  if (!isset($directors)) {
+                    //echo "not set directors";
+                    include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
                     try {
                       $result = $pdo->query('SELECT id, name FROM director');
                     }
@@ -116,6 +117,11 @@
                     {
                       $directors[] = array('id' => $row['id'], 'name' => $row['name']);
                     }
+                    
+                  }
+                  if (!isset($countries)) {
+                    //echo "not set countries";
+                    include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
                     try {
                       $result = $pdo->query('SELECT id, name FROM country');
                     }
@@ -142,10 +148,10 @@
                     <?php foreach ($movies as $movie): ?>
                     <tr>
 
-                      <td class = "col-md-4"><?php 
-                      echo htmlspecialchars_decode($movie['moviename']); ?></td> 
+                      <td class = "col-md-4"><?php htmlout($movie['moviename']); ?></td> 
                       <td class = "col-md-3"><?php 
-                      echo htmlspecialchars_decode(getdirector( $movie['directorid'] ));
+                      
+                        htmlout($directors[ ($movie['directorid'])-1]['name'] ); 
                         ?></td> 
                       <td class = "col-md-2"><?php htmlout($movie['score']); ?></td> 
                       <td>

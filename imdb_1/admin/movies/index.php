@@ -13,7 +13,7 @@ if (isset($_GET['add']))
   // Build the list of directos
   try
   {
-    $result = $pdo->query('SELECT id, name FROM director');
+    $result = $pdo->query('SELECT id, name FROM director ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -28,7 +28,7 @@ if (isset($_GET['add']))
   // Build the list of countries
   try
   {
-    $result = $pdo->query('SELECT id, name FROM country');
+    $result = $pdo->query('SELECT id, name FROM country ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -74,7 +74,7 @@ if (isset($_POST['action']) and $_POST['action'] == 'Edit')
   // Build the list of directors
   try
   {
-    $result = $pdo->query('SELECT id, name FROM director');
+    $result = $pdo->query('SELECT id, name FROM director ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -106,7 +106,7 @@ if (isset($_POST['action']) and $_POST['action'] == 'Edit')
   // Build the list of all countries
   try
   {
-    $result = $pdo->query('SELECT id, name FROM country');
+    $result = $pdo->query('SELECT id, name FROM country ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -135,40 +135,46 @@ if (isset($_GET['addformimdb'])) {
   echo $url1;
   if( isset( $json1['title_popular'] ) ){
    // do something
-
-    $json_get = $json1['title_popular'];
-    $moviename = $json_get[0]['title'];
-    $overview = $json_get[0]['title_description'];
-    $imdbid = $json_get[0]['id'];
-    echo "<br/>id: " . $json_get[0]['id'];
-    echo "<br/>moviename: " . $json_get[0]['title'];
-    echo "<br/>overview: " . $json_get[0]['title_description'];
+    $json2 = $json1['title_popular'];
+    foreach ($json2 as $row) {
+      $movies[] = array('moviename' => $row['title'], 'overview' => $row['title_description'], 'imdbid' => $row['id']);
+      $pageTitle = 'Suggestion result';
+      $action = 'addformimdbreturns';
+      $directorid = '';
+      $button = 'Yes, add this movie';
+      $moviename = $row['title'];
+      $overview = $row['title_description'];
+      $imdbid = $row['id'];
+      echo "<br/>id: " . $row['id'];
+      echo "<br/>moviename: " . $row['title'];
+      echo "<br/>overview: " . $row['title_description'];
+    }
   }
   else if( isset( $json1['title_approx'] ) ){
    // do something
+    $json2 = $json1['title_approx'];
+    foreach ($json2 as $row) {
+      $movies[] = array('moviename' => $row['title'], 'overview' => $row['title_description'], 'imdbid' => $row['id']);
+      $pageTitle = 'Suggestion result';
+      $action = 'addformimdbreturns';
+      $directorid = '';
+      $button = 'Yes, add this movie';
+      $moviename = $row['title'];
+      $overview = $row['title_description'];
+      $imdbid = $row['id'];
+      echo "<br/>id: " . $row['id'];
+      echo "<br/>moviename: " . $row['title'];
 
-    $json_get = $json1['title_approx'];
-    $moviename = $json_get[0]['title'];
-    $overview = $json_get[0]['title_description'];
-    $imdbid = $json_get[0]['id'];
-    echo "<br/>id: " . $json_get[0]['id'];
-    echo "<br/>moviename: " . $json_get[0]['title'];
-
-    echo "<br/>overview: " . $json_get[0]['title_description'];
+      echo "<br/>overview: " . $row['title_description'];
+    }
   }
-
-
-  
-  
-
-  
-  $pageTitle = 'Suggestion result';
-  $action = 'addformimdbreturns';
-  $directorid = '';
-  $button = 'Yes, add this movie';
-
+  else {
+    $pageTitle = 'No result found sorry!';
+    $action = 'gosearchimdb';
+    $directorid = '';
+    $button = 'Go back to add movie';
+  }
   include "searchimdbresult.html.php";
-
   exit();
 }
 
@@ -182,7 +188,7 @@ if (isset($_GET['addformimdbreturns'])) {
   echo "Imdbid: ". $_POST['imdbid'] ;
 
   $overview_array = explode(',', $overview);
-  print_r($overview_array);
+  //print_r($overview_array);
   $moviedate = $overview_array[0];
   $directorname = $overview_array[1];
   echo "<br/>movie year: " . $moviedate;
@@ -200,6 +206,7 @@ if (isset($_GET['addformimdbreturns'])) {
   $director_parse_array = explode(' ', $directorname);
   $directorfirstname = $director_parse_array[0];
   $directorlastname = $director_parse_array[1];
+  $directorid = 0;
   echo "<br/>director first name: [" . $directorfirstname . "].";
   echo "<br/>director last name: [" . $directorlastname . "].";
   // The basic SELECT statement
@@ -207,6 +214,8 @@ if (isset($_GET['addformimdbreturns'])) {
   $from   = ' FROM director';
   $where  = ' WHERE TRUE';
   $placeholders = array();
+
+
   
   if ($directorname != '') // Some search text was specified
   {
@@ -231,9 +240,88 @@ if (isset($_GET['addformimdbreturns'])) {
   {
     echo "111";
     $directors[] = array('id' => $row['id'], 'name' => $row['name']);
+    echo "<br/>search director result: director id: " . $directors[0]['id'] . ", <br/> name: " . $directors[0]['name'];
+    $directorid = $directors[0]['id'];
+    break;
   }
-  echo "<br/>search director result: director id: " . $directors[0]['id'] . ", <br/> name: " . $directors[0]['name'];
-  $directorid = $directors[0]['id'];
+    
+  if ( $directorid == 0 ) {
+    echo "<br/>director not found! adding director " . $directorname ;
+    try {
+      $sql = 'INSERT INTO director SET
+          name = :directorname';
+      $s = $pdo->prepare($sql);
+      $s->bindValue(':directorname', $directorname);
+      $result = $s->execute();
+    }
+    catch (PDOException $e)
+    {
+      echo "error"; 
+      $error = 'Error adding submitted director.';
+      include 'error.html.php';
+      exit();
+    }
+    // The basic SELECT statement
+    $select = 'SELECT id, name';
+    $from   = ' FROM director';
+    $where  = ' WHERE TRUE';
+    $placeholders = array();
+    if ($directorname != '') // Some search text was specified
+    {
+      echo "and!!!";
+      $where .= " AND name LIKE :directorfirstname AND name LIKE :directorlastname";
+      $placeholders[':directorfirstname'] = '%' . $directorfirstname . '%';
+      $placeholders[':directorlastname'] = '%' . $directorlastname . '%';
+    }
+    try {
+      $sql = $select . $from . $where; 
+      $s = $pdo->prepare($sql); 
+      $s->execute($placeholders);
+    }
+    catch (PDOException $e)
+    {
+      echo "error";
+      $error = 'Error fetching directors.';
+      include 'error.html.php';
+      exit();
+    }
+    foreach ($s as $row)
+    {
+      echo "111";
+      $directors[] = array('id' => $row['id'], 'name' => $row['name']);
+      echo "<br/>search director result: director id: " . $directors[0]['id'] . ", <br/> name: " . $directors[0]['name'];
+      $directorid = $directors[0]['id'];
+      break;
+    }
+  }
+  echo "<br/moviename: " . $moviename;
+  echo "<br/>moviedate: " . $moviedate;
+  echo "<br/>directorname: " . $directorname;
+  echo "<br/>imdbid: " . $imdbid;
+  echo "<br/>directorid: " . $directorid;
+  
+  try {
+    echo "trying to check duplicate";
+    $sql = 'SELECT id, imdbid, moviename FROM movie WHERE moviename LIKE :moviename';
+    $s = $pdo->prepare($sql);
+    $s->bindValue(':moviename', $_POST['moviename']);
+    $s->execute();
+  }
+  catch (PDOException $e)
+  {
+    echo "error";
+    $error = 'Error fetching directors.';
+    include 'error.html.php';
+    exit();
+  }
+  foreach ($s as $row)
+  {
+    echo "Error this movie already exists!!!!";
+    exit();
+  }
+
+  $score = getscore($imdbid);
+  echo "<br/>Score: " . $score;
 
   try {
     echo "Adding...";
@@ -242,13 +330,15 @@ if (isset($_GET['addformimdbreturns'])) {
         moviedate = :moviedate,
         imdbid = :imdbid,
         directorid = :directorid,
-        directorname = :directorname';
+        directorname = :directorname,
+        score = :score';
     $s = $pdo->prepare($sql);
-    $s->bindValue(':moviename', $moviename); // ahhhhhhhiuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-    $s->bindValue(':moviedate', $moviedate); // ahhhhhhhiuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-    $s->bindValue(':directorname', $directorname); // ahhhhhhhiuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-    $s->bindValue(':imdbid', $imdbid); // ahhhhhhhiuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-    $s->bindValue(':directorid', $directorid); // ahhhhhhhiuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+    $s->bindValue(':moviename', $moviename); 
+    $s->bindValue(':moviedate', $moviedate); 
+    $s->bindValue(':directorname', $directorname);
+    $s->bindValue(':imdbid', $imdbid);
+    $s->bindValue(':directorid', $directorid); 
+    $s->bindValue(':score', $score); 
     $s->execute();
     }
   catch (PDOException $e)
@@ -267,9 +357,32 @@ if (isset($_GET['addformimdbreturns'])) {
 
 if (isset($_GET['addform']))
 {
-
   //echo "add form";
-  include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
+  include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php'; 
+  
+  try {
+    //echo "trying to check duplicate";
+    $sql = 'SELECT id, imdbid, moviename FROM movie WHERE moviename LIKE :moviename';
+    $s = $pdo->prepare($sql);
+    $s->bindValue(':moviename', $_POST['moviename']);
+    $s->execute();
+  }
+  catch (PDOException $e)
+  {
+    echo "error";
+    $error = 'Error fetching directors.';
+    include 'error.html.php';
+    exit();
+  }
+  foreach ($s as $row)
+  {
+    echo "Error this movie already exists!!!!";
+    exit();
+  }
+    
+
+
+
   if ($_POST['director'] == '')
   {
     $error = 'You must choose a director for this movie.
@@ -280,7 +393,7 @@ if (isset($_GET['addform']))
   try {
     $sql = 'INSERT INTO movie SET
         moviename = :moviename,
-        moviedate = CURDATE(),
+        moviedate = "2016",
         directorid = :directorid';
     $s = $pdo->prepare($sql);
     $s->bindValue(':moviename', $_POST['moviename']); // ahhhhhhhiuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
@@ -459,7 +572,7 @@ if (isset($_GET['gosearchimdb'])) {
   // Build the list of directos
   try
   {
-    $result = $pdo->query('SELECT id, name FROM director');
+    $result = $pdo->query('SELECT id, name FROM director ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -474,7 +587,7 @@ if (isset($_GET['gosearchimdb'])) {
   // Build the list of countries
   try
   {
-    $result = $pdo->query('SELECT id, name FROM country');
+    $result = $pdo->query('SELECT id, name FROM country ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -496,7 +609,7 @@ if (isset($_GET['gosearchpage']) || isset($_GET['goview']) || $wantsearch == tru
 {
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   try {
-    $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie');
+    $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ORDER BY moviename ASC');
   }
   catch (PDOException $e)
   {
@@ -509,7 +622,7 @@ if (isset($_GET['gosearchpage']) || isset($_GET['goview']) || $wantsearch == tru
     $movies[] = array('id' => $row['id'], 'moviename' => $row['moviename'], 'directorid' => $row['directorid'], 'score' => $row['score']);
   }
   try {
-    $result = $pdo->query('SELECT id, name FROM director');
+    $result = $pdo->query('SELECT id, name FROM director ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -522,7 +635,7 @@ if (isset($_GET['gosearchpage']) || isset($_GET['goview']) || $wantsearch == tru
     $directors[] = array('id' => $row['id'], 'name' => $row['name']);
   }
   try {
-    $result = $pdo->query('SELECT id, name FROM country');
+    $result = $pdo->query('SELECT id, name FROM country ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -598,8 +711,10 @@ if ( (isset($_GET['action']) and $_GET['action'] == 'search') )
     $directors[] = array('id' => $row['id'], 'name' => $row['name']);
   }
   if (!isset($movies)) {
-    echo "unsuccesssful";
+    //echo "unsuccesssful";
     $noresult = 1;
+    //$movies[] = array('moviename' => "no result");
+
   }
   include 'movies.html.php';
   exit(); 
@@ -613,7 +728,7 @@ if ( (isset($_GET['action']) and $_GET['action'] == 'search') )
 // Display search form
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
 try {
-  $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ');
+  $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ORDER BY moviename ASC');
 }
 catch (PDOException $e)
 {
@@ -651,7 +766,7 @@ foreach ($result as $row)
 {
   $countries[] = array('id' => $row['id'], 'name' => $row['name']);
 }
-echo "Bfore including main movies";
+//echo "Bfore including main movies";
 include 'movies.html.php';
 
 
@@ -686,7 +801,7 @@ function searchinarray($array, $key, $value, &$ret)
 function getmovieinfo (&$movies) {
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   try {
-    $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ');
+    $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ORDER BY moviename ASC ');
   }
   catch (PDOException $e)
   {
@@ -703,7 +818,7 @@ function getmovieinfo (&$movies) {
 function getdirectorinfo (&$directors) {
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   try {
-    $result = $pdo->query('SELECT id, name FROM director');
+    $result = $pdo->query('SELECT id, name FROM director ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -720,7 +835,7 @@ function getdirectorinfo (&$directors) {
 function getcountryinfo (&$countries) {
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php'; 
   try {
-    $result = $pdo->query('SELECT id, name FROM country');
+    $result = $pdo->query('SELECT id, name FROM country ORDER BY name ASC');
   }
   catch (PDOException $e)
   {
@@ -739,6 +854,16 @@ function getallinfo (&$movies, &$directors, &$countries) {
   getmovieinfo ($movies);
   getdirectorinfo ($directors);
   getcountryinfo ($countries);
+}
+
+function getscore($imdbid) {
+  echo "getting score!";
+  $url1 = file_get_contents("https://api.themoviedb.org/3/find/$imdbid?external_source=imdb_id&api_key=0a497969dcb2f9f6c0f1007683a8df67");
+  $json1 = json_decode($url1, true); //This will convert it to an array
+  $json_getscore = $json1['movie_results'];
+  echo "<br/>" . $url;
+  echo "<br/>score: " . $json_getscore[0]['vote_average'];
+  return $json_getscore[0]['vote_average'];
 }
 
 ?>

@@ -96,7 +96,34 @@ if (isset($_GET['editform']))
   exit(); 
 }
 
+if (isset($_POST['action']) and $_POST['action'] == 'See movies') {
+  $directorid = $_POST['id'];
+  //echo "directorid: " . $directorid;
+  include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
+  try {
+    //echo "trying!";
+    $sql = 'SELECT id, moviename, directorid, score FROM movie WHERE directorid = :id';
+    $s = $pdo->prepare($sql);
+    $s->bindValue(':id', $_POST['id']);
+    $s->execute();
+  }
+  catch (PDOException $e)
+  {
+    echo "error";
+    $error = 'Error fetching movies from database!';
+    include 'error.html.php';
+    exit(); 
+  }
+  foreach ($s as $row)
+  {
+    //echo "111";
+    $movies[] = array('id' => $row['id'], 'moviename' => $row['moviename'], 'directorid' => $row['directorid'], 'score' => $row['score']);
+    //echo "id: " . $movies[0]['id'] . ", directorid: " . $movies[0]['directorid'] . ", score: " . $movies[0]['score'];
+  }
+  include "movies.html.php";
 
+  exit();
+}
 
 
 
@@ -182,7 +209,12 @@ if (isset($_POST['action']) and $_POST['action'] == 'Delete')
 
 
 
-
+function getdirector($directorid)
+{
+  getallinfo ($movies, $directors, $countries);
+  searchinarray($directors, 'id', $directorid, $ret);
+  return $ret;
+}
 
 
 function getcountryfromdirector ( $countryid ) {

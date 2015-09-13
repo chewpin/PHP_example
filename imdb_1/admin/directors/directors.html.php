@@ -30,17 +30,12 @@
                     <li> <a href="../movies/"> Movies </a> </li>
                     <li> <a href="../movies/popular.html.php"> Popular now </a> </li>
                     <li> <a href="../movies/upcoming.html.php"> Upcoming </a> </li>
+                    <li> <a href="../movies/highrated.html.php"> Highly rated </a> </li>
                     <li> <a href="#"> Reserved </a> </li>
                   </ul>
               </li>
-              <li class = "dropdown active">
-                  <a href="#" class= "dropdown-toggle" data-toggle="dropdown"> Director <b class = "caret"></b> </a>
-                  <ul class = "dropdown-menu">
-                      <li> <a href="../directors/"> Director </a> </li>
-                      <li> <a href="#"> Reserved </a> </li>
-                      <li> <a href="#"> Reserved+ </a> </li>
-                      <li> <a href="#"> Reserved </a> </li>
-                  </ul>
+              <li class = "active">
+                  <a href="../directors"> Director </a>
               </li>
               <li>
                   <a href="../countries/"> Country </a>
@@ -91,9 +86,11 @@
                               <td class = "col-md-4">
                                   <input type="hidden" name="id" value="<?php
                                       echo $director['id']; ?>">
+                                  
+                                  <input type="submit" name="action" value="See movies" class = "btn btn-default">
                                   <input type="submit" name="action" value="Edit" class = "btn btn-default">
-                                  <input type="submit" name="action" value="Delete" class = "btn btn-danger">
-                              </td>
+<!--                                   <input type="submit" name="action" value="Delete" class = "btn btn-danger">
+ -->                              </td>
                             </div>
                           </form>
                       <?php endforeach; ?>

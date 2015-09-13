@@ -33,14 +33,8 @@
                   <li> <a href="#"> Reserved </a> </li>
                 </ul>
             </li>
-            <li class = "dropdown ">
-                <a href="#" class= "dropdown-toggle " data-toggle="dropdown"> Director <b class = "caret"></b> </a>
-                <ul class = "dropdown-menu">
-                    <li> <a href="../directors/"> Director </a> </li>
-                    <li> <a href="#"> Reserved </a> </li>
-                    <li> <a href="#"> Reserved+ </a> </li>
-                    <li> <a href="#"> Reserved </a> </li>
-                </ul>
+            <li>
+                <a href="../directors"> Director </a>
             </li>
             <li class = "active">
                 <a href="../countries/"> Country </a>
