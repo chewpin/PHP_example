@@ -72,6 +72,7 @@
         <a href="upcoming.html.php" class="btn btn-info">Upcoming</a>
         
           <a href= "?gosearchpage" class="btn btn-primary">  New Search </a>
+          <a href= "?gosearchimdb" class="btn btn-primary">  Search based on IMDB </a>
 
         
       </center>

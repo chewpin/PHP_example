@@ -1,0 +1,31 @@
+{ 
+	"title_popular": 
+	[
+		{ 
+			"id":"tt0057012", 
+			"title":"Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb", 
+			"name":"",
+			"title_description":"1964, Stanley Kubrick",
+			"episode_title":"",
+			"description":"1964, Stanley Kubrick"
+		}
+	],
+	"title_substring": 
+	[
+		{ 
+			"id":"tt0293282", 
+			"title":"Inside: 'Dr. Strangelove or How I Learned to Stop Worrying and Love the Bomb'", 
+			"name":"",
+			"title_description":"2000 video documentary, David Naylor",
+			"episode_title":"",
+			"description":"2000 video documentary, David Naylor"
+		},
+		{ 
+			"id":"tt0445088", 
+			"title":"No Fighting in the War Room or Dr. Strangelove and the Nuclear Threat", 
+			"name":"",
+			"title_description":"2004 video documentary short, John Scheinfeld",
+			"episode_title":"","description":"2004 video documentary short, John Scheinfeld"
+		},
+		{ "id":"tt1237861", "title":"Best Sellers or: Peter Sellers and Dr. Strangelove", "name":"","title_description":"2004 video documentary short, John Scheinfeld","episode_title":"","description":"2004 video documentary short, John Scheinfeld"}],"title_approx": [{ "id":"tt0292930", "title":"The Art of Stanley Kubrick: From Short Films to Strangelove", "name":"","title_description":"2000 video documentary short, David Naylor","episode_title":"","description":"2000 video documentary short, David Naylor"},{ "id":"tt0058037", "title":"Dr. Sex", "name":"","title_description":"1964, ","episode_title":"","description":"1964, "},{ "id":"tt3813920", "title":"Ruby Strangelove Young Witch", "name":"","title_description":"2015, Evgeny Ruman","episode_title":"","description":"2015, Evgeny Ruman"},{ "id":"tt3986704", "title":"Miss Strangelove", "name":"","title_description":"2013, Christopher Forbes","episode_title":"","description":"2013, Christopher Forbes"},{ "id":"tt0399702", "title":"Strangelove", "name":"","title_description":"2002 short, James Nadeau","episode_title":"","description":"2002 short, James Nadeau"},{ "id":"tt1845284", "title":"StrangeLove", "name":"","title_description":"2009 short, ","episode_title":"","description":"2009 short, "},{ "id":"tt0125840", "title":"Little Me and Marla Strangelove", "name":"","title_description":"1978, Kirdy Stevens","episode_title":"","description":"1978, Kirdy Stevens"},{ "id":"tt0136045", "title":"Dr. Strange Glove", "name":"","title_description":"1990, Greg Stump","episode_title":"","description":"1990, Greg Stump"},{ "id":"tt0083552", "title":"Amor Estranho Amor", "name":"","title_description":"1982, Walter Hugo Khouri","episode_title":"","description":"1982, Walter Hugo Khouri"},{ "id":"tt0088152", "title":"A Strange Love", "name":"","title_description":"1984, Lothar Warneke","episode_title":"","description":"1984, Lothar Warneke"},{ "id":"tt0070537", "title":"Pigs", "name":"","title_description":"1972, Marc Lawrence","episode_title":"","description":"1972, Marc Lawrence"},{ "id":"tt0088183", "title":"A Strange Love Affair", "name":"","title_description":"1985, Eric De Kuyper...","episode_title":"","description":"1985, Eric De Kuyper..."},{ "id":"tt0233857", "title":"Strange Love", "name":"","title_description":"1997 video, Daiji Suzuki","episode_title":"","description":"1997 video, Daiji Suzuki"},{ "id":"tt0072961", "title":"Night of the Walking Dead", "name":"","title_description":"1975, León Klimovsky","episode_title":"","description":"1975, León Klimovsky"},{ "id":"tt1918650", "title":"A Strange Love Story", "name":"","title_description":"2011, Tarique Khan...","episode_title":"","description":"2011, Tarique Khan..."},{ "id":"tt1773536", "title":"Leather Pants & Strange Love", "name":"","title_description":"2010 short, Matthew Alson Thornbury","episode_title":"","description":"2010 short, Matthew Alson Thornbury"}] 
+}
