@@ -25,7 +25,7 @@
                   <a href=".."> Home </a>
               </li>
               <li>
-                  <a href="?goview"> Movies </a>
+                  <a href="../movies"> Movies </a>
               </li>
               <li class = "dropdown active">
                   <a href="#" class= "dropdown-toggle" data-toggle="dropdown"> Director <b class = "caret"></b> </a>

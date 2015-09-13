@@ -52,15 +52,15 @@
 
     <div class="container">
       <div class="jumbotron">
-        <center><h1> Can't find? </h1>
-        <p> Just add your own as long as we have the director. Please add the director otherwise. </p>
+        <center><h1>  </h1>
+        <h3> Live feed of popular films 
         <a href="?add" class="btn btn-default">Add new movie</a>
         <a href="../directors/" class="btn btn-info">  Add director </a>
-        <a href="?gotoapipage" class="btn btn-warning">Popular now</a>
-        <a href="?gosearchpage" class="btn btn-primary">  New Search </a>
+        <a href="?gosearchpage" class="btn btn-primary">  New Search </a></h3>
       </center>
       </div>
     </div>
+    
 
 
     <div class="container">
@@ -73,21 +73,36 @@
               
               <form action="" method="get">
                 <div>
-                  <?php if (isset($movies)): ?>
+                  <?php 
+                  if (!isset($json2)) {
+                    //echo "not setttt";
+                    $url1 = file_get_contents("http://api.themoviedb.org/3/movie/popular?api_key=0a497969dcb2f9f6c0f1007683a8df67");
+                    $json1 = json_decode($url1, true); //This will convert it to an array
+                    $json2 = $json1['results'];
+                  }
+                  ?>
                   <table class="table table-striped">
                     <tr>
                       <th>Movie Name</th>
-                      <th>Director</th>
-                      <th>Score</th>
+                      <th>Release date</th>
+                      <th>Vote Avg</th>
+                      <th>Popularity</th>
+                      <th>Vote count</th>
                       <th></th>
                     </tr> 
 
-                    <?php foreach ($movies as $movie): ?>
+                    
+
+                    <?php foreach ($json2 as $item): ?>
                     <tr>
-                      <td class = "col-md-4"><?php htmlout($movie['moviename']); ?></td> 
-                      <td class = "col-md-3"><?php htmlout($directors[ $movie['directorid'] ]['name']); ?></td> 
-                      <td class = "col-md-2"><?php htmlout($movie['score']); ?></td> 
-                      <td>
+                      <td class = "col-md-4"><?php htmlout($item['title']); ?></td> 
+
+                      <td class = "col-md-2"><?php htmlout($item['release_date']); ?></td> 
+                      <td class = "col-md-2"><?php htmlout($item['vote_average']); ?></td> 
+                      <td class = "col-md-2"><?php htmlout(intval($item['popularity'])); ?></td> 
+                      <td class = "col-md-2"><?php htmlout($item['vote_count']); ?></td> 
+                      
+                      <!-- <td>
                         <form action="?" method="post">
                           <div>
                             <input type="hidden" name="id" value="<?php htmlout($movie['id']); ?>">
@@ -95,11 +110,10 @@
                             <input type="submit" name="action" value="Delete" class="btn btn-danger">
                           </div>
                         </form>
-                      </td>
+                      </td> -->
                     </tr>
                     <?php endforeach; ?>
                   </table>
-                  <?php endif; ?>
                 </div> 
               </form>
             </div>

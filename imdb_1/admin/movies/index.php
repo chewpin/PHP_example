@@ -201,7 +201,7 @@ if (isset($_GET['editform']))
         WHERE id = :id';
     $s = $pdo->prepare($sql);
     $s->bindValue(':id', $_POST['id']);
-    $s->bindValue(':moviename', $_POST['text']);
+    $s->bindValue(':moviename', $_POST['moviename']);
     $s->bindValue(':directorid', $_POST['director']);
     $s->execute();
   }
@@ -223,7 +223,7 @@ if (isset($_GET['editform']))
     include 'error.html.php';
     exit();
   }
-  if (isset($_POST['coutries']))
+  if (isset($_POST['countries']))
   {
     try {
       $sql = 'INSERT INTO moviecountry SET
@@ -247,6 +247,81 @@ if (isset($_GET['editform']))
   header('Location: .');
   exit(); 
 } // END if (isset($_GET['editform']))
+
+
+
+
+if (isset($_GET['gotoapipage']) ) {
+
+  //echo "gogogo";
+  $url1 = file_get_contents("http://api.themoviedb.org/3/movie/popular?api_key=0a497969dcb2f9f6c0f1007683a8df67");
+  $json1 = json_decode($url1, true); //This will convert it to an array
+  $json2 = $json1['results'];
+  include 'popular.html.php';
+  exit();
+
+}
+
+//if (isset($_GET['addapi'])) {
+
+ //  echo "Submit!!";
+ //  echo ($_POST['name']);
+ // $id = "tt0133093"; // the matrix
+
+ //  $url = file_get_contents("https://api.themoviedb.org/3/find/" . $id . "?external_source=imdb_id&api_key=0a497969dcb2f9f6c0f1007683a8df67");
+ //  $json = json_decode($url, true); //This will convert it to an array
+ //  echo "<br/>url returns " . $url;
+ //  $moviename = $json['movie_results'][0]['title'];
+ //  $moviedate = $json['movie_results'][0]['release_date']; 
+ //  $overview = $json['movie_results'][0]['overview']; 
+ //  $posterpath = $json['movie_results'][0]['poster_path']; 
+ //  $posterpath = $json['movie_results'][0]['poster_path']; 
+ //  $score = $json['movie_results'][0]['vote_average']; 
+  // $genre = $json['movie_results'][0]['genre_ids']; 
+  // echo $json['movie_results'][0]['genre_ids'][0]; 
+  // foreach ($genre as $row)
+  // {
+  //   echo "1";
+  //   $genres[] = array('genre' => $row);
+  //   echo $row;
+  // }
+ 
+
+
+  //   $url1 = file_get_contents("http://api.themoviedb.org/3/movie/popular?api_key=0a497969dcb2f9f6c0f1007683a8df67");
+  // $json1 = json_decode($url1, true); //This will convert it to an array
+  // echo "<br/><br/>url returns " . $url1;
+
+
+
+  // $i = 0;
+  // $json2 = $json1['results'];
+  // foreach($json2 as $item) { //foreach element in $arr
+  //   $moviename = $item['title'];
+  //   $moviedate = $item['release_date']; 
+  //   $overview = $item['overview']; 
+  //   $moviedate = $item['release_date'];
+  //   $posterpath = $item['poster_path']; 
+  //   $score = $item['vote_average'];
+  //   echo "<br/><br/>" . $i .": The movie '$moviename' was made in $moviedate, 
+  //     <br/>overview: $overview, <br/>poster path: $posterpath, <br/>score: $score";  
+  //   $i = $i + 1;  
+  // }
+
+  // $moviename = $json1['results'][0]['title'];
+  // $moviedate = $json1['results'][0]['release_date']; 
+  // $overview = $json1['results'][0]['overview']; 
+  // $posterpath = $json1['results'][0]['poster_path']; 
+  // $posterpath = $json1['results'][0]['poster_path']; 
+  // $score = $json1['results'][0]['vote_average']; 
+  
+  // echo "<br/><br/>The movie '$moviename' was made in $moviedate, 
+  //   <br/>overview: $overview, <br/>poster path: $posterpath, <br/>score: $score, <br/>genre: $genre";              
+             
+  //exit();
+//}
+
+
 
 
 
@@ -341,7 +416,6 @@ if (isset($_GET['gosearchpage']) || isset($_GET['goview']) )
 
 
 
-
 if (isset($_GET['action']) and $_GET['action'] == 'search')
 {
   //echo "Searching start";
@@ -366,9 +440,8 @@ if (isset($_GET['action']) and $_GET['action'] == 'search')
   }
   if ($_GET['text'] != '') // Some search text was specified
   {
-    //echo "Some search text was specified";
-    $where .= " AND movietext LIKE :movietext";
-    $placeholders[':movietext'] = '%' . $_GET['text'] . '%';
+    $where .= " AND moviename LIKE :moviename";
+    $placeholders[':moviename'] = '%' . $_GET['text'] . '%';
   }
   try {
     $sql = $select . $from . $where; 
@@ -397,6 +470,10 @@ if (isset($_GET['action']) and $_GET['action'] == 'search')
   foreach ($result as $row)
   {
     $directors[] = array('id' => $row['id'], 'name' => $row['name']);
+  }
+  if (!isset($movies)) {
+    echo "unsuccesssful";
+    $noresult = 1;
   }
   include 'movies.html.php';
   exit(); 

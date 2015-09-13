@@ -9,6 +9,7 @@
   <body>
     <h1>Manage Country</h1>
     <p><a href="?add">Add new country</a></p>
+    <p><a href="?gotoapipage">Add api</a></p>
     <ul>
       <?php foreach ($countries as $country): ?>
         <li>
