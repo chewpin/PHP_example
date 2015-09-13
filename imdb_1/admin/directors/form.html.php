@@ -12,42 +12,42 @@
 <body>
 
   <div class="navbar navbar-inverse navbar-static-top">
-      <div class = "container">
-        <div class="navbar-header">
-          <a href=".." class = "navbar-brand"> My IMDB </a>
-          <button class = "navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-          </button>
-      </div>
-      <div class="collapse navbar-collapse navHeaderCollapse">
-          <ul class="nav navbar-nav navbar-right">
-              <li>
-                  <a href=".."> Home </a>
-              </li>
-              <li >
-                  <a href="?goview"> Movies </a>
-              </li>
-              <li class = "dropdown active">
-                  <a href="#" class= "dropdown-toggle" data-toggle="dropdown"> Director <b class = "caret"></b> </a>
-                  <ul class = "dropdown-menu">
-                      <li> <a href="../directors/" > Director </a> </li>
-                      <li> <a href="#"> Reserved </a> </li>
-                      <li> <a href="#"> Reserved+ </a> </li>
-                      <li> <a href="#"> Reserved </a> </li>
-                  </ul>
-              </li>
-              <li>
-                  <a href="../countries/"> Country </a>
-              </li>
-              <li>
-                  <a href="#contact" data-toggle="modal"> Contact </a>
-              </li>
-          </ul>
-        </div>
+    <div class = "container">
+      <div class="navbar-header">
+        <a href=".." class = "navbar-brand"> My IMDB </a>
+        <button class = "navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse navHeaderCollapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href=".."> Home </a>
+            </li>
+            <li >
+                <a href="?goview"> Movies </a>
+            </li>
+            <li class = "dropdown active">
+                <a href="#" class= "dropdown-toggle" data-toggle="dropdown"> Director <b class = "caret"></b> </a>
+                <ul class = "dropdown-menu">
+                    <li> <a href="../directors/" > Director </a> </li>
+                    <li> <a href="#"> Reserved </a> </li>
+                    <li> <a href="#"> Reserved+ </a> </li>
+                    <li> <a href="#"> Reserved </a> </li>
+                </ul>
+            </li>
+            <li>
+                <a href="../countries/"> Country </a>
+            </li>
+            <li>
+                <a href="#contact" data-toggle="modal"> Contact </a>
+            </li>
+        </ul>
       </div>
     </div>
+  </div>
 
     <div class="container">
       <div class="jumbotron">

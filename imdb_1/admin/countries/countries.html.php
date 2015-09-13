@@ -102,25 +102,6 @@
 
 
 
-
-    <ul>
-      <?php foreach ($countries as $country): ?>
-        <li>
-          <form action="" method="post">
-            <div>
-              <?php htmlout($country['name']); ?>
-              <input type="hidden" name="id" value="<?php
-              echo $country['id']; ?>">
-              <input type="submit" name="action" value="Edit">
-              <input type="submit" name="action" value="Delete">
-            </div>
-          </form>
-        </li>
-      <?php endforeach; ?>
-    </ul>
-    
-
-
     <div class = "wrapper">
       <div class = "navbar navbar-default navbar-fixed-bottom">
         <div class = "container">
