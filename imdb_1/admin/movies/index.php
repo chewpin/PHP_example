@@ -723,8 +723,6 @@ if ( (isset($_GET['action']) and $_GET['action'] == 'search') )
 
 
 
-
-
 // Display search form
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
 try {
