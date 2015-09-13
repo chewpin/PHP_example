@@ -56,7 +56,7 @@
         <p> Just add your own as long as we have the director. Please add the director otherwise. </p>
         <a href="?add" class="btn btn-default">Add new movie</a>
         <a href="../directors/" class="btn btn-info">  Add director </a>
-        <a href="?gotoapipage" class="btn btn-warning">Popular now</a>
+        <a href="?gopopularnow" class="btn btn-warning">Popular now</a>
         <a href="?gosearchpage" class="btn btn-primary">  New Search </a>
       </center>
       </div>

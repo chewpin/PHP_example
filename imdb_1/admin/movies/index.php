@@ -251,13 +251,22 @@ if (isset($_GET['editform']))
 
 
 
-if (isset($_GET['gotoapipage']) ) {
+if (isset($_GET['gopopularnow']) ) {
 
-  //echo "gogogo";
   $url1 = file_get_contents("http://api.themoviedb.org/3/movie/popular?api_key=0a497969dcb2f9f6c0f1007683a8df67");
   $json1 = json_decode($url1, true); //This will convert it to an array
-  $json2 = $json1['results'];
+  $json_gopopular = $json1['results'];
   include 'popular.html.php';
+  exit();
+
+}
+
+if (isset($_GET['goupcoming']) ) {
+
+  $url1 = file_get_contents("http://api.themoviedb.org/3/movie/upcoming?api_key=0a497969dcb2f9f6c0f1007683a8df67");
+  $json1 = json_decode($url1, true); //This will convert it to an array
+  $json_upcoming = $json1['results'];
+  include 'upcoming.html.php';
   exit();
 
 }

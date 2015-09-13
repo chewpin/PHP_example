@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <!-- <meta charset="utf-8"> -->
-    <title>Popular now</title>
+    <title>Upcoming</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../../../boot/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="../../../boot/css/style.css" rel="stylesheet">
@@ -53,7 +53,7 @@
     <div class="container">
       <div class="jumbotron">
         <center><h1>  </h1>
-        <h3> Live feed of popular films 
+        <h3> Live feed of upcoming films 
         <a href="?add" class="btn btn-default">Add new movie</a>
         <a href="../directors/" class="btn btn-info">  Add director </a>
         <a href="?gosearchpage" class="btn btn-primary">  New Search </a></h3>
@@ -74,11 +74,11 @@
               <form action="" method="get">
                 <div>
                   <?php 
-                  if (!isset($json_gopopular)) {
+                  if (!isset($json_upcoming)) {
                     //echo "not setttt";
-                    $url1 = file_get_contents("http://api.themoviedb.org/3/movie/popular?api_key=0a497969dcb2f9f6c0f1007683a8df67");
+                    $url1 = file_get_contents("http://api.themoviedb.org/3/movie/upcoming?api_key=0a497969dcb2f9f6c0f1007683a8df67");
                     $json1 = json_decode($url1, true); //This will convert it to an array
-                    $json_gopopular = $json1['results'];
+                    $json_upcoming = $json1['results'];
                   }
                   ?>
                   <table class="table table-striped">
@@ -93,7 +93,7 @@
 
                     
 
-                    <?php foreach ($json_gopopular as $item): ?>
+                    <?php foreach ($json_upcoming as $item): ?>
                     <tr>
                       <td class = "col-md-4"><?php htmlout($item['title']); ?></td> 
 
