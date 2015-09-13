@@ -25,9 +25,19 @@
               <li>
                   <a href=".."> Home </a>
               </li>
-              <li class = "active">
-                  <a href="?goview"> Movies </a>
+              
+
+              <li class = "dropdown active">
+                  <a href="#" class= "dropdown-toggle " data-toggle="dropdown"> Movies <b class = "caret"></b> </a>
+                  <ul class = "dropdown-menu">
+                      <li> <a href="#"> Movies </a> </li>
+                      <li> <a href="popular.html.php"> Popular now </a> </li>
+                      <li> <a href="upcoming.html.php"> Upcoming </a> </li>
+                      <li> <a href="#"> Reserved </a> </li>
+                  </ul>
               </li>
+
+
               <li class = "dropdown">
                   <a href="#" class= "dropdown-toggle" data-toggle="dropdown"> Director <b class = "caret"></b> </a>
                   <ul class = "dropdown-menu">
@@ -50,14 +60,20 @@
 
     
 
+    
+
     <div class="container">
       <div class="jumbotron">
         <center><h1> Can't find? </h1>
         <p> Just add your own as long as we have the director. Please add the director otherwise. </p>
         <a href="?add" class="btn btn-default">Add new movie</a>
-        <a href="../directors/" class="btn btn-info">  Add director </a>
-        <a href="?gopopularnow" class="btn btn-warning">Popular now</a>
-        <a href="?gosearchpage" class="btn btn-primary">  New Search </a>
+        <a href="../directors/" class="btn btn-default"> Add director </a>
+        <a href="popular.html.php" class="btn btn-success">Popular now</a>
+        <a href="upcoming.html.php" class="btn btn-info">Upcoming</a>
+        
+          <a href= "?gosearchpage" class="btn btn-primary">  New Search </a>
+
+        
       </center>
       </div>
     </div>
@@ -73,7 +89,51 @@
               
               <form action="" method="get">
                 <div>
-                  <?php if (isset($movies)): ?>
+                  <?php 
+                  if (!isset($movies)) {
+                    //echo "not set";
+                    include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
+                    try {
+                      $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ');
+                    }
+                    catch (PDOException $e)
+                    {
+                      $error = 'Error fetching movies from database!';
+                      include 'error.html.php';
+                      exit(); 
+                    }
+                    foreach ($result as $row)
+                    {
+                      $movies[] = array('id' => $row['id'], 'moviename' => $row['moviename'], 'directorid' => $row['directorid'], 'score' => $row['score']);
+                    }
+                    try {
+                      $result = $pdo->query('SELECT id, name FROM director');
+                    }
+                    catch (PDOException $e)
+                    {
+                      $error = 'Error fetching directors from database!';
+                      include 'error.html.php';
+                      exit(); 
+                    }
+                    foreach ($result as $row)
+                    {
+                      $directors[] = array('id' => $row['id'], 'name' => $row['name']);
+                    }
+                    try {
+                      $result = $pdo->query('SELECT id, name FROM country');
+                    }
+                    catch (PDOException $e)
+                    {
+                      $error = 'Error fetching countries from database!';
+                      include 'error.html.php';
+                      exit();
+                    }
+                    foreach ($result as $row)
+                    {
+                      $countries[] = array('id' => $row['id'], 'name' => $row['name']);
+                    }
+                  }
+                  ?>
                   <table class="table table-striped">
                     <tr>
                       <th>Movie Name</th>
@@ -99,7 +159,6 @@
                     </tr>
                     <?php endforeach; ?>
                   </table>
-                  <?php endif; ?>
                 </div> 
               </form>
             </div>

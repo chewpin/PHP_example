@@ -24,8 +24,14 @@
               <li>
                   <a href=".."> Home </a>
               </li>
-              <li>
-                  <a href="../movies"> Movies </a>
+              <li class = "dropdown ">
+                  <a href="#" class= "dropdown-toggle " data-toggle="dropdown"> Movies <b class = "caret"></b> </a>
+                  <ul class = "dropdown-menu">
+                    <li> <a href="../movies/"> Movies </a> </li>
+                    <li> <a href="../movies/popular.html.php"> Popular now </a> </li>
+                    <li> <a href="../movies/upcoming.html.php"> Upcoming </a> </li>
+                    <li> <a href="#"> Reserved </a> </li>
+                  </ul>
               </li>
               <li class = "dropdown active">
                   <a href="#" class= "dropdown-toggle" data-toggle="dropdown"> Director <b class = "caret"></b> </a>

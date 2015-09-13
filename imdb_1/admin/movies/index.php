@@ -251,7 +251,7 @@ if (isset($_GET['editform']))
 
 
 
-if (isset($_GET['gopopularnow']) ) {
+if (isset($_GET['gopopular']) ) {
 
   $url1 = file_get_contents("http://api.themoviedb.org/3/movie/popular?api_key=0a497969dcb2f9f6c0f1007683a8df67");
   $json1 = json_decode($url1, true); //This will convert it to an array
@@ -375,7 +375,7 @@ if (isset($_POST['action']) and $_POST['action'] == 'Delete')
 
 
 
-if (isset($_GET['gosearchpage']) || isset($_GET['goview']) )
+if (isset($_GET['gosearchpage']) || isset($_GET['goview']) || $wantsearch == true )
 {
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   try {
@@ -417,7 +417,7 @@ if (isset($_GET['gosearchpage']) || isset($_GET['goview']) )
   {
     $countries[] = array('id' => $row['id'], 'name' => $row['name']);
   }
-  if (isset($_GET['gosearchpage'])) include 'searchform.html.php';
+  if (isset($_GET['gosearchpage'])|| $wantsearch == true) include 'searchform.html.php';
   if ( isset($_GET['goview']) ) include 'movies.html.php';
   exit(); 
 }
@@ -425,7 +425,7 @@ if (isset($_GET['gosearchpage']) || isset($_GET['goview']) )
 
 
 
-if (isset($_GET['action']) and $_GET['action'] == 'search')
+if ( (isset($_GET['action']) and $_GET['action'] == 'search') )
 {
   //echo "Searching start";
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
@@ -534,6 +534,7 @@ foreach ($result as $row)
 {
   $countries[] = array('id' => $row['id'], 'name' => $row['name']);
 }
+//echo "Bfore including main movies";
 include 'movies.html.php';
 
 
@@ -613,6 +614,7 @@ function getcountryinfo (&$countries) {
 }
 
 function getallinfo (&$movies, &$directors, &$countries) {
+  include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   getmovieinfo ($movies);
   getdirectorinfo ($directors);
   getcountryinfo ($countries);

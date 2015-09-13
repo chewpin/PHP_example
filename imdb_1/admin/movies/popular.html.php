@@ -25,8 +25,14 @@
               <li>
                   <a href=".."> Home </a>
               </li>
-              <li class = "active">
-                  <a href="?goview"> Movies </a>
+              <li class = "dropdown active">
+                  <a href="#" class= "dropdown-toggle " data-toggle="dropdown"> Movies <b class = "caret"></b> </a>
+                  <ul class = "dropdown-menu">
+                      <li> <a href="../movies"> Movies </a> </li>
+                      <li> <a href="#"> Popular now </a> </li>
+                      <li> <a href="upcoming.html.php"> Upcoming </a> </li>
+                      <li> <a href="#"> Reserved </a> </li>
+                  </ul>
               </li>
               <li class = "dropdown">
                   <a href="#" class= "dropdown-toggle" data-toggle="dropdown"> Director <b class = "caret"></b> </a>
@@ -54,9 +60,8 @@
       <div class="jumbotron">
         <center><h1>  </h1>
         <h3> Live feed of popular films 
-        <a href="?add" class="btn btn-default">Add new movie</a>
-        <a href="../directors/" class="btn btn-info">  Add director </a>
-        <a href="?gosearchpage" class="btn btn-primary">  New Search </a></h3>
+        <a href="../movies" class="btn btn-default"> Movies </a>
+        <a href="upcoming.html.php" class="btn btn-info"> Upcoming </a>
       </center>
       </div>
     </div>
