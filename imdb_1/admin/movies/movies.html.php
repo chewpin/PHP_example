@@ -92,7 +92,7 @@
                 <div>
                   <?php 
                   if (!isset($movies)) {
-                    //echo "not set";
+                    echo "not set";
                     include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
                     try {
                       $result = $pdo->query('SELECT id, moviename, directorid, score FROM movie ');
@@ -145,8 +145,11 @@
 
                     <?php foreach ($movies as $movie): ?>
                     <tr>
+
                       <td class = "col-md-4"><?php htmlout($movie['moviename']); ?></td> 
-                      <td class = "col-md-3"><?php htmlout($directors[ $movie['directorid'] ]['name']); ?></td> 
+                      <td class = "col-md-3"><?php 
+                        htmlout(getdirector( $movie['directorid'] )); 
+                        ?></td> 
                       <td class = "col-md-2"><?php htmlout($movie['score']); ?></td> 
                       <td>
                         <form action="?" method="post">

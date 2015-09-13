@@ -186,37 +186,22 @@ if (isset($_GET['addformimdbreturns'])) {
   $moviedate = $overview_array[0];
   $directorname = $overview_array[1];
   echo "<br/>movie year: " . $moviedate;
-  echo "<br/>movie director: " . $directorname;
+  echo "<br/>movie director: " . $directorname . "<br/>[";
 
-  $directorname = preg_replace('/<a href=\'(.*?)\'>(.*?)<\/a>/', "\\2", $directorname);
-  echo "after tranform: " . $directorname;
   echo htmlspecialchars($directorname, ENT_QUOTES, 'UTF-8');
+  $directorname = trim($directorname, " ");
+  $directorname = preg_replace('/<a href=\'(.*?)\'>(.*?)<\/a>/', "\\2", $directorname);
+  echo "]<br/>after tranform: [" . $directorname . "]<br/>";
 
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
-  try {
-    echo "Adding...";
-    $sql = 'INSERT INTO movie SET
-        moviename = :moviename,
-        moviedate = :moviedate,
-        imdbid = :imdbid,
-        directorname = :directorname';
-    $s = $pdo->prepare($sql);
-    $s->bindValue(':moviename', $moviename); // ahhhhhhhiuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-    $s->bindValue(':moviedate', $moviedate); // ahhhhhhhiuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-    $s->bindValue(':directorname', $directorname); // ahhhhhhhiuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-    $s->bindValue(':imdbid', $imdbid); // ahhhhhhhiuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-    $s->execute();
-    }
-  catch (PDOException $e)
-  {
-    echo "error";
-    $error = 'Error adding submitted movie.';
-    include 'error.html.php';
-    exit();
-  }
+  
 
 
-
+  $director_parse_array = explode(' ', $directorname);
+  $directorfirstname = $director_parse_array[0];
+  $directorlastname = $director_parse_array[1];
+  echo "<br/>director first name: [" . $directorfirstname . "].";
+  echo "<br/>director last name: [" . $directorlastname . "].";
   // The basic SELECT statement
   $select = 'SELECT id, name';
   $from   = ' FROM director';
@@ -225,8 +210,10 @@ if (isset($_GET['addformimdbreturns'])) {
   
   if ($directorname != '') // Some search text was specified
   {
-    $where .= " AND name LIKE :directorname";
-    $placeholders[':directorname'] = '%' . $directorname . '%';
+    echo "and!!!";
+    $where .= " AND name LIKE :directorfirstname AND name LIKE :directorlastname";
+    $placeholders[':directorfirstname'] = '%' . $directorfirstname . '%';
+    $placeholders[':directorlastname'] = '%' . $directorlastname . '%';
   }
   try {
     $sql = $select . $from . $where; 
@@ -242,15 +229,40 @@ if (isset($_GET['addformimdbreturns'])) {
   }
   foreach ($s as $row)
   {
-      $directors[] = array('id' => $row['id'], 'name' => $row['name']);
+    echo "111";
+    $directors[] = array('id' => $row['id'], 'name' => $row['name']);
   }
   echo "<br/>search director result: director id: " . $directors[0]['id'] . ", <br/> name: " . $directors[0]['name'];
+  $directorid = $directors[0]['id'];
 
-
+  try {
+    echo "Adding...";
+    $sql = 'INSERT INTO movie SET
+        moviename = :moviename,
+        moviedate = :moviedate,
+        imdbid = :imdbid,
+        directorid = :directorid,
+        directorname = :directorname';
+    $s = $pdo->prepare($sql);
+    $s->bindValue(':moviename', $moviename); // ahhhhhhhiuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+    $s->bindValue(':moviedate', $moviedate); // ahhhhhhhiuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+    $s->bindValue(':directorname', $directorname); // ahhhhhhhiuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+    $s->bindValue(':imdbid', $imdbid); // ahhhhhhhiuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+    $s->bindValue(':directorid', $directorid); // ahhhhhhhiuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+    $s->execute();
+    }
+  catch (PDOException $e)
+  {
+    echo "error";
+    $error = 'Error adding submitted movie.';
+    include 'error.html.php';
+    exit();
+  }
+  getallinfo ($movies, $directors, $countries);
   include "movies.html.php";
 
   exit();
-}
+} // END if (isset($_GET['addformimdbreturns']))
 
 
 if (isset($_GET['addform']))
@@ -395,67 +407,6 @@ if (isset($_GET['goupcoming']) ) {
   exit();
 
 }
-
-//if (isset($_GET['addapi'])) {
-
- //  echo "Submit!!";
- //  echo ($_POST['name']);
- // $id = "tt0133093"; // the matrix
-
- //  $url = file_get_contents("https://api.themoviedb.org/3/find/" . $id . "?external_source=imdb_id&api_key=0a497969dcb2f9f6c0f1007683a8df67");
- //  $json = json_decode($url, true); //This will convert it to an array
- //  echo "<br/>url returns " . $url;
- //  $moviename = $json['movie_results'][0]['title'];
- //  $moviedate = $json['movie_results'][0]['release_date']; 
- //  $overview = $json['movie_results'][0]['overview']; 
- //  $posterpath = $json['movie_results'][0]['poster_path']; 
- //  $posterpath = $json['movie_results'][0]['poster_path']; 
- //  $score = $json['movie_results'][0]['vote_average']; 
-  // $genre = $json['movie_results'][0]['genre_ids']; 
-  // echo $json['movie_results'][0]['genre_ids'][0]; 
-  // foreach ($genre as $row)
-  // {
-  //   echo "1";
-  //   $genres[] = array('genre' => $row);
-  //   echo $row;
-  // }
- 
-
-
-  //   $url1 = file_get_contents("http://api.themoviedb.org/3/movie/popular?api_key=0a497969dcb2f9f6c0f1007683a8df67");
-  // $json1 = json_decode($url1, true); //This will convert it to an array
-  // echo "<br/><br/>url returns " . $url1;
-
-
-
-  // $i = 0;
-  // $json2 = $json1['results'];
-  // foreach($json2 as $item) { //foreach element in $arr
-  //   $moviename = $item['title'];
-  //   $moviedate = $item['release_date']; 
-  //   $overview = $item['overview']; 
-  //   $moviedate = $item['release_date'];
-  //   $posterpath = $item['poster_path']; 
-  //   $score = $item['vote_average'];
-  //   echo "<br/><br/>" . $i .": The movie '$moviename' was made in $moviedate, 
-  //     <br/>overview: $overview, <br/>poster path: $posterpath, <br/>score: $score";  
-  //   $i = $i + 1;  
-  // }
-
-  // $moviename = $json1['results'][0]['title'];
-  // $moviedate = $json1['results'][0]['release_date']; 
-  // $overview = $json1['results'][0]['overview']; 
-  // $posterpath = $json1['results'][0]['poster_path']; 
-  // $posterpath = $json1['results'][0]['poster_path']; 
-  // $score = $json1['results'][0]['vote_average']; 
-  
-  // echo "<br/><br/>The movie '$moviename' was made in $moviedate, 
-  //   <br/>overview: $overview, <br/>poster path: $posterpath, <br/>score: $score, <br/>genre: $genre";              
-             
-  //exit();
-//}
-
-
 
 
 
@@ -700,8 +651,11 @@ foreach ($result as $row)
 {
   $countries[] = array('id' => $row['id'], 'name' => $row['name']);
 }
-//echo "Bfore including main movies";
+echo "Bfore including main movies";
 include 'movies.html.php';
+
+
+
 
 
 function getdirector($directorid)
