@@ -132,7 +132,7 @@ if (isset($_GET['addformimdb'])) {
   $moviename =preg_replace("/\s/","",$_POST['moviename']);
   $url1 = file_get_contents("http://www.imdb.com/xml/find?json=1&nr=1&tt=on&q=" . $moviename );
   $json1 = json_decode($url1, true); //This will convert it to an array
-  echo $url1;
+  // echo $url1;
   if( isset( $json1['title_popular'] ) ){
    // do something
     $json2 = $json1['title_popular'];
@@ -145,9 +145,9 @@ if (isset($_GET['addformimdb'])) {
       $moviename = $row['title'];
       $overview = $row['title_description'];
       $imdbid = $row['id'];
-      echo "<br/>id: " . $row['id'];
-      echo "<br/>moviename: " . $row['title'];
-      echo "<br/>overview: " . $row['title_description'];
+      // echo "<br/>id: " . $row['id'];
+      // echo "<br/>moviename: " . $row['title'];
+      // echo "<br/>overview: " . $row['title_description'];
     }
   }
   else if( isset( $json1['title_approx'] ) ){
@@ -162,10 +162,10 @@ if (isset($_GET['addformimdb'])) {
       $moviename = $row['title'];
       $overview = $row['title_description'];
       $imdbid = $row['id'];
-      echo "<br/>id: " . $row['id'];
-      echo "<br/>moviename: " . $row['title'];
+      // echo "<br/>id: " . $row['id'];
+      // echo "<br/>moviename: " . $row['title'];
 
-      echo "<br/>overview: " . $row['title_description'];
+      // echo "<br/>overview: " . $row['title_description'];
     }
   }
   else {
@@ -179,25 +179,25 @@ if (isset($_GET['addformimdb'])) {
 }
 
 if (isset($_GET['addformimdbreturns'])) {
-  echo "Returns!!!";
+  // echo "Returns!!!";
   $moviename = $_POST['moviename'];
   $overview = $_POST['overview'];
   $imdbid = $_POST['imdbid'];
-  echo "Moviename: ". $_POST['moviename'];
-  echo "Overview: ". $_POST['overview'] ;
-  echo "Imdbid: ". $_POST['imdbid'] ;
+  // echo "Moviename: ". $_POST['moviename'];
+  // echo "Overview: ". $_POST['overview'] ;
+  // echo "Imdbid: ". $_POST['imdbid'] ;
 
   $overview_array = explode(',', $overview);
   //print_r($overview_array);
   $moviedate = $overview_array[0];
   $directorname = $overview_array[1];
-  echo "<br/>movie year: " . $moviedate;
-  echo "<br/>movie director: " . $directorname . "<br/>[";
+  // echo "<br/>movie year: " . $moviedate;
+  // echo "<br/>movie director: " . $directorname . "<br/>[";
 
-  echo htmlspecialchars($directorname, ENT_QUOTES, 'UTF-8');
+  // echo htmlspecialchars($directorname, ENT_QUOTES, 'UTF-8');
   $directorname = trim($directorname, " ");
   $directorname = preg_replace('/<a href=\'(.*?)\'>(.*?)<\/a>/', "\\2", $directorname);
-  echo "]<br/>after tranform: [" . $directorname . "]<br/>";
+  // echo "]<br/>after tranform: [" . $directorname . "]<br/>";
 
   include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_imdb.inc.php';
   
@@ -207,8 +207,8 @@ if (isset($_GET['addformimdbreturns'])) {
   $directorfirstname = $director_parse_array[0];
   $directorlastname = $director_parse_array[1];
   $directorid = 0;
-  echo "<br/>director first name: [" . $directorfirstname . "].";
-  echo "<br/>director last name: [" . $directorlastname . "].";
+  // echo "<br/>director first name: [" . $directorfirstname . "].";
+  // echo "<br/>director last name: [" . $directorlastname . "].";
   // The basic SELECT statement
   $select = 'SELECT id, name';
   $from   = ' FROM director';
@@ -219,7 +219,7 @@ if (isset($_GET['addformimdbreturns'])) {
   
   if ($directorname != '') // Some search text was specified
   {
-    echo "and!!!";
+    // echo "and!!!";
     $where .= " AND name LIKE :directorfirstname AND name LIKE :directorlastname";
     $placeholders[':directorfirstname'] = '%' . $directorfirstname . '%';
     $placeholders[':directorlastname'] = '%' . $directorlastname . '%';
@@ -238,15 +238,15 @@ if (isset($_GET['addformimdbreturns'])) {
   }
   foreach ($s as $row)
   {
-    echo "111";
+    // echo "111";
     $directors[] = array('id' => $row['id'], 'name' => $row['name']);
-    echo "<br/>search director result: director id: " . $directors[0]['id'] . ", <br/> name: " . $directors[0]['name'];
+    // echo "<br/>search director result: director id: " . $directors[0]['id'] . ", <br/> name: " . $directors[0]['name'];
     $directorid = $directors[0]['id'];
     break;
   }
     
   if ( $directorid == 0 ) {
-    echo "<br/>director not found! adding director " . $directorname ;
+    // echo "<br/>director not found! adding director " . $directorname ;
     try {
       $sql = 'INSERT INTO director SET
           name = :directorname';
@@ -268,7 +268,7 @@ if (isset($_GET['addformimdbreturns'])) {
     $placeholders = array();
     if ($directorname != '') // Some search text was specified
     {
-      echo "and!!!";
+      // echo "and!!!";
       $where .= " AND name LIKE :directorfirstname AND name LIKE :directorlastname";
       $placeholders[':directorfirstname'] = '%' . $directorfirstname . '%';
       $placeholders[':directorlastname'] = '%' . $directorlastname . '%';
@@ -287,21 +287,21 @@ if (isset($_GET['addformimdbreturns'])) {
     }
     foreach ($s as $row)
     {
-      echo "111";
+      // echo "111";
       $directors[] = array('id' => $row['id'], 'name' => $row['name']);
-      echo "<br/>search director result: director id: " . $directors[0]['id'] . ", <br/> name: " . $directors[0]['name'];
+      // echo "<br/>search director result: director id: " . $directors[0]['id'] . ", <br/> name: " . $directors[0]['name'];
       $directorid = $directors[0]['id'];
       break;
     }
   }
-  echo "<br/moviename: " . $moviename;
-  echo "<br/>moviedate: " . $moviedate;
-  echo "<br/>directorname: " . $directorname;
-  echo "<br/>imdbid: " . $imdbid;
-  echo "<br/>directorid: " . $directorid;
+  // echo "<br/moviename: " . $moviename;
+  // echo "<br/>moviedate: " . $moviedate;
+  // echo "<br/>directorname: " . $directorname;
+  // echo "<br/>imdbid: " . $imdbid;
+  // echo "<br/>directorid: " . $directorid;
   
   try {
-    echo "trying to check duplicate";
+    // echo "trying to check duplicate";
     $sql = 'SELECT id, imdbid, moviename FROM movie WHERE moviename LIKE :moviename';
     $s = $pdo->prepare($sql);
     $s->bindValue(':moviename', $_POST['moviename']);
@@ -321,10 +321,10 @@ if (isset($_GET['addformimdbreturns'])) {
   }
 
   $score = getscore($imdbid);
-  echo "<br/>Score: " . $score;
+  // echo "<br/>Score: " . $score;
 
   try {
-    echo "Adding...";
+    // echo "Adding...";
     $sql = 'INSERT INTO movie SET
         moviename = :moviename,
         moviedate = :moviedate,
@@ -855,12 +855,12 @@ function getallinfo (&$movies, &$directors, &$countries) {
 }
 
 function getscore($imdbid) {
-  echo "getting score!";
+  // echo "getting score!";
   $url1 = file_get_contents("https://api.themoviedb.org/3/find/$imdbid?external_source=imdb_id&api_key=0a497969dcb2f9f6c0f1007683a8df67");
   $json1 = json_decode($url1, true); //This will convert it to an array
   $json_getscore = $json1['movie_results'];
-  echo "<br/>" . $url;
-  echo "<br/>score: " . $json_getscore[0]['vote_average'];
+  // echo "<br/>" . $url;
+  // echo "<br/>score: " . $json_getscore[0]['vote_average'];
   return $json_getscore[0]['vote_average'];
 }
 
