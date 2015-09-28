@@ -2,32 +2,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>EECS 492 A1 Results</title>
+    <title>EECS 492 A1 Results</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../../boot/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="../../../boot/css/style.css" rel="stylesheet">
 </head>
 <body>
-<p>
-EECS 492 A1 Results<br>
-Xi Chen<br>
-September 25, 2015<br>
-</p>
-<h2>A1 Results</h2>
-<p>
-The purpose of this project is to recreate
-<a href="http://rogeralsing.com/2008/12/07/genetic-programming-evolution-of-mona-lisa/">Roger
-Alsing's work on genetic programming to create art</a>.
-The population consists of approximations to a given image.
-Each image uses P polygons, where P=100 for the results on this page.
-N is the population size and K is the number of new children created per generation.
-T is the number of generations displayed in each animation.
-The fitness of the image is a measure of how closely it matches the original image.
-The learning curve shows how the fitness of the best approximation improves over time.
-The 3D graphs depict how the fitness after 25000 generations varies with N and K.
-</p>
-<table border=1>
+<div class="navbar navbar-inverse navbar-static-top">
+        <div class = "container">
+
+            <div class="navbar-header">
+
+                <a href="../" class = "navbar-brand"> My IMDB </a>
+                <button class = "navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse navHeaderCollapse">
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class = "active">
+                        <a href="../"> Home </a>
+                    </li>
+                    <li class = "dropdown ">
+                        <a href="#" class= "dropdown-toggle " data-toggle="dropdown"> Movies <b class = "caret"></b> </a>
+                        <ul class = "dropdown-menu">
+                            <li> <a href="../movies/"> Movies </a> </li>
+                            <li> <a href="../movies/popular.html.php"> Popular now </a> </li>
+                            <li> <a href="../movies/upcoming.html.php"> Upcoming </a> </li>
+                            <li> <a href="../movies/highrated.html.php"> Highly rated </a> </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="../directors/"> Director </a>
+                    </li>
+                    <li>
+                        <a href="../countries/"> Country </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+ <div class="container">
+      <div class="jumbotron">
+        <center><h2 > Genetic programming -> art </h2>
+        <p> The purpose of this project is to recreate
+        <a href="http://rogeralsing.com/2008/12/07/genetic-programming-evolution-of-mona-lisa/">Roger
+        Alsing's work on genetic programming to create art</a>.
+        The population consists of approximations to a given image.
+        Each image uses P polygons, where P=100 for the results on this page.
+        N is the population size and K is the number of new children created per generation.
+        T is the number of generations displayed in each animation.
+        The fitness of the image is a measure of how closely it matches the original image.
+        The learning curve shows how the fitness of the best approximation improves over time.
+        The 3D graphs depict how the fitness after 25000 generations varies with N and K. </p>
+        <!-- <a href="movies/" class="btn btn-default">  Movies </a>
+        <a href="directors/" class="btn btn-default">  Directors </a> --> 
+      </div>
+    </div>
+
+<table border=1 class="table table-striped">
 <tr>
 <th>Original image</th>
 <th>Approximation</th>
 <th>Learning curve</th>
+<th></th>
 </tr>
 <tr>
 <td>96&times;96 pixels<br><img src="im_darwin.jpg"></td>
@@ -99,7 +141,27 @@ Random triangles were created by picking a point on the image with uniform distr
 Random colors were picked using uniform distribution over the RGB color space.
 </p>
 <p>
-Parents were selected in this way: Created a sorted vector of the N potential parents based on their fitness. Give each potential parent an accumulated fitness normalised to be in [0,1], with each interval proportional to its fitness. Use  <code>alphaGen(randEngine)</code> to created an uniformly distributed random double between 0 and 1. In this way, the possibility of the random double lying in a certain potential parent’s interval is proportional to the fitness of the potential parent. Therefore, the potential parent possibility to be selected to be a parent is proportional to its fitness. Repeat for K rounds and we have K children.
+Parents were selected in this way: Created a sorted vector of the N potential parents based on their fitness. Give each potential parent an accumulated fitness normalised to be in [0,1], with each interval proportional to its fitness. Use  <code>alphaGen(randEngine)</code> to created an uniformly distributed random double between 0 and 1. In this way, the possibility of the random double lying in a certain potential parent interval is proportional to the fitness of the potential parent. Therefore, the potential parent possibility to be selected to be a parent is proportional to its fitness. Repeat for K rounds and we have K children.
 </p>
+
+
+ <div class='wrapper'>
+      <div class = "navbar  navbar-default navbar-fixed-bottom">
+        <div class = "container">
+          <p class = "navbar-text pull-left"> 
+          </p>
+          <a href = ".." class = "navbar-btn btn-default btn pull-right"> Return to homepage </a>
+        </div>
+      </div>  
+    </div>  
+
+
+
+
+
+
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script src="../../../boot/js/bootstrap.js"></script>
 </body>
 </html>

@@ -376,7 +376,8 @@ if (isset($_GET['addform']))
   }
   foreach ($s as $row)
   {
-    echo "Error this movie already exists!!!!";
+    $error = "Error this movie already exists!!!!";
+    include "error.html.php";
     exit();
   }
     

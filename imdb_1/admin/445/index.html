@@ -1,0 +1,141 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>My IMDB CMS</title> 
+</head>
+  </head>
+  <body>
+    <h1>My IMDB</h1>
+    <ul>
+      <li><a href="movies/">Manage Movies</a></li>
+      <li><a href="directors/">Manage Directors</a></li>
+      <li><a href="countries/">Manage Country</a></li>
+    </ul>
+  </body>
+</html>
+ -->
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My IMDB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../../boot/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="../../../boot/css/style.css" rel="stylesheet">
+  </head>
+  <body> 
+    <div class="navbar navbar-inverse navbar-static-top">
+        <div class = "container">
+
+            <div class="navbar-header">
+
+                <a href="../" class = "navbar-brand"> My IMDB </a>
+                <button class = "navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse navHeaderCollapse">
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class = "active">
+                        <a href="../"> Home </a>
+                    </li>
+                    <li class = "dropdown ">
+                        <a href="#" class= "dropdown-toggle " data-toggle="dropdown"> Movies <b class = "caret"></b> </a>
+                        <ul class = "dropdown-menu">
+                            <li> <a href="../movies/"> Movies </a> </li>
+                            <li> <a href="../movies/popular.html.php"> Popular now </a> </li>
+                            <li> <a href="../movies/upcoming.html.php"> Upcoming </a> </li>
+                            <li> <a href="../movies/highrated.html.php"> Highly rated </a> </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="../directors/"> Director </a>
+                    </li>
+                    <li>
+                        <a href="../countries/"> Country </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="container">
+      <div class="jumbotron">
+        <center><h1 > Number Identification </h1>
+        <p> Part of my EECS 445 Machine Learning Course Project </p>
+        <!-- <a href="movies/" class="btn btn-default">  Movies </a>
+        <a href="directors/" class="btn btn-default">  Directors </a> --> 
+      </div>
+    </div>
+
+
+    <div class="container">
+
+      <table border=1 class="table table-striped">
+        <tr>
+        <th>Original image</th>
+        <th>8 Nearest Neighbors</th>
+        <th>Classify Result</th>
+        </tr>
+        <tr>
+        <td class = "col-md-1"><br><img width=300 height=200 src="1s.jpg"></td>
+        <td class = "col-md-2"><br><img width=300 height=200 src="1.jpg"></td>
+        <td class = "col-md-2"><img width=300 height=200 src="11.png"></td>
+        </tr>
+        <tr>
+        <td class = "col-md-1"><br><img width=300 height=200 src="2s.jpg"></td>
+        <td class = "col-md-2"><br><img width=300 height=200 src="2.jpg"></td>
+        <td class = "col-md-2"><img width=300 height=200 src="22.png"></td>
+        </tr>
+        <tr>
+        <td class = "col-md-1"><br><img width=300 height=200 src="3s.jpg"></td>
+        <td class = "col-md-2"><br><img width=300 height=200 src="3.jpg"></td>
+        <td class = "col-md-2"><img width=300 height=200 src="33.png"></td>
+        </tr>
+        <tr>
+        <td class = "col-md-1"><br><img width=300 height=200 src="4s.jpg"></td>
+        <td class = "col-md-2"><br><img width=300 height=200 src="4.jpg"></td>
+        <td class = "col-md-2"><img width=300 height=200 src="44.png"></td>
+        </tr>
+        <tr>
+        <td class = "col-md-1"><br><img width=300 height=200 src="5s.jpg"></td>
+        <td class = "col-md-2"><br><img width=300 height=200 src="5.jpg"></td>
+        <td class = "col-md-2"><img width=300 height=200 src="55.png"></td>
+        </tr>
+      </table>
+
+    </div>
+
+
+    
+
+    <div class='wrapper'>
+      <div class = "navbar  navbar-default navbar-fixed-bottom">
+        <div class = "container">
+          <p class = "navbar-text pull-left"> 
+          </p>
+          <a href = ".." class = "navbar-btn btn-default btn pull-right"> Return to homepage </a>
+        </div>
+      </div>  
+    </div>  
+
+
+
+
+
+
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script src="../../../boot/js/bootstrap.js"></script>
+  </body>
+</html>
