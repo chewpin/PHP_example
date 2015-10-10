@@ -19,8 +19,8 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
           </button>
-      </div>
-      <div class="collapse navbar-collapse navHeaderCollapse">
+        </div>
+        <div class="collapse navbar-collapse navHeaderCollapse">
           <ul class="nav navbar-nav navbar-right">
               <li>
                   <a href=".."> Home </a>
